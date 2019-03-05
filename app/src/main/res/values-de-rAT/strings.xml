@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Break Notifier</string>
+    <string name="no_school_selected">Keine Schule ausgewählt</string>
+    <string name="username">Benutzername</string>
+    <string name="password">Passwort</string>
+    <string name="choose">Auswählen</string>
+    <string name="login">Anmelden</string>
+    <string name="in_school">Schulnamen eingeben</string>
+</resources>

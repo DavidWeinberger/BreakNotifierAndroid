@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Break Notifier</string>
+    <string name="no_school_selected">No School Selected</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="choose">Choose</string>
+    <string name="login">Login</string>
+    <string name="in_school">Enter schoolname</string>
+</resources>
