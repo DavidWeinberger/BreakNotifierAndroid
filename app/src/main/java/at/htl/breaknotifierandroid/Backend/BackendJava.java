@@ -32,9 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 public class BackendJava {
+    private static String serverName;
     private String idSearch = "wu_schulsuche-1542658388792";
-    //private Client client = ClientBuilder.newClient();
-    //private WebTarget target;
 
     public BackendJava(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -129,7 +128,7 @@ public class BackendJava {
         try{
             //HttpPost post = new HttpPost("https://"+serverUrl+"/WebUntis/j_spring_security_check");
             target = client.target("https://"+serverUrl+"/WebUntis/j_spring_security_check");
-
+            serverName = serverUrl;
             MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
             formData.add("school", loginName);
             formData.add("j_username", username);
@@ -170,22 +169,39 @@ public class BackendJava {
                 System.out.println("Falsches Passwort");
             }
 
-            /*StringEntity se = new StringEntity(formData.toString());
-            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            post.setEntity(se);
-
-            //response = client.execute(post);
-
-            if (response != null) {
-                InputStream in = response.getEntity().getContent();
-                int i = in.read();
-                String theString = IOUtils.toString(in, "UTF-8");
-                response.getHeaders("Cookies");
-            }*/
         }catch (Exception e){
             System.err.println(e);
         }
         return null;
     }
+
+    public List<String> getDailyTimeTable(NewCookie loginCookie){
+        Client client = ClientBuilder.newClient();
+        WebTarget target;
+        Response response;
+
+        target = client.target("https://" + serverName + "/WebUntis/api/app/config");
+        response = target.request(MediaType.APPLICATION_JSON).cookie(loginCookie).get();
+        try {
+            //JSONObject object = response.readEntity(JSONObject.class);
+
+            String strings = response.readEntity(String.class);
+            JSONObject obj = new JSONObject(strings);
+            System.out.println(obj);
+
+            //.getJSONObject("data").getJsonObject("loginServiceConfig").getJsonObject("user");
+            /*object = (JSONObject) object.get("data");
+            object = (JSONObject) object.get("loginServiceConfig");
+            object = (JSONObject) object.get("user");
+            //System.out.println(object);
+            int id = (int) object.get("personId");
+            int type = (int) object.get("roleId");*/
+        }catch (Exception e){
+            System.err.println("failed");
+        }
+
+        return null;
+    }
+
 }
 

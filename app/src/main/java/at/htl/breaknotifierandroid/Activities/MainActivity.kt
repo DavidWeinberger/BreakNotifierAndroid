@@ -40,6 +40,14 @@ class MainActivity : AppCompatActivity() {
             val backend = BackendJava()
             var cookie: NewCookie? =backend.login(school.get("server").toString()
                 , school.get("loginName").toString(), username, password)
+            if(cookie == null){
+                Toast.makeText(this@MainActivity, "Passwort/Username falsch.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                static_cookie = cookie
+                val intent = Intent(this, timetable::class.java)
+                startActivity(intent)
+            }
             //val backend = Backend.getInstance()
 
             //val loginSuccessful = backend.login(username, password)
@@ -50,6 +58,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        lateinit var static_cookie: NewCookie
+    }
 
     override fun onResume() {
         super.onResume()
