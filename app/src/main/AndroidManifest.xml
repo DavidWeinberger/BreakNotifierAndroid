@@ -11,11 +11,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Activities.timetable">
+        <activity android:name=".activities.Timetable">
         </activity>
-        <activity android:name=".Activities.SchoolSelectionActivity">
+        <activity android:name=".activities.SchoolSelectionActivity">
         </activity>
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

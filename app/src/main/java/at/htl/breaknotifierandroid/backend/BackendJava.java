@@ -1,18 +1,12 @@
-package at.htl.breaknotifierandroid.Backend;
+package at.htl.breaknotifierandroid.backend;
 
-import android.os.AsyncTask;
-import android.os.Looper;
 import android.os.StrictMode;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.json.simple.JSONArray;
 import org.json.JSONException;
@@ -186,8 +180,7 @@ public class BackendJava {
             //JSONObject object = response.readEntity(JSONObject.class);
 
             String strings = response.readEntity(String.class);
-            JSONObject obj = new JSONObject(strings);
-            System.out.println(obj);
+            //JSONObject obj = new JSONObject(strings);
 
             //.getJSONObject("data").getJsonObject("loginServiceConfig").getJsonObject("user");
             /*object = (JSONObject) object.get("data");

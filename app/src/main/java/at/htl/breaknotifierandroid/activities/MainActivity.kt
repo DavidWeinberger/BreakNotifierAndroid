@@ -1,12 +1,11 @@
-package at.htl.breaknotifierandroid.Activities
+package at.htl.breaknotifierandroid.activities
 
 //import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import at.htl.breaknotifierandroid.Backend.Backend
-import at.htl.breaknotifierandroid.Backend.BackendJava
+import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.simple.JSONObject
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 static_cookie = cookie
-                val intent = Intent(this, timetable::class.java)
+                val intent = Intent(this, Timetable::class.java)
                 startActivity(intent)
             }
             //val backend = Backend.getInstance()

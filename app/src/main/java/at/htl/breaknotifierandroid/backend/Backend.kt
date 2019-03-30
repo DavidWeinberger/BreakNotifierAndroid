@@ -1,9 +1,6 @@
-package at.htl.breaknotifierandroid.Backend
+package at.htl.breaknotifierandroid.backend
 
 //import khttp.get as httpGet
-import org.json.JSONArray
-import org.json.JSONObject
-import java.lang.Exception
 
 object Backend {
 

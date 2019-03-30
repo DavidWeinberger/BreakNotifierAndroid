@@ -1,10 +1,10 @@
-package at.htl.breaknotifierandroid.Activities
+package at.htl.breaknotifierandroid.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import at.htl.breaknotifierandroid.Backend.BackendJava
+import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
 import kotlinx.android.synthetic.main.activity_school_selection.*
 import org.json.simple.JSONArray

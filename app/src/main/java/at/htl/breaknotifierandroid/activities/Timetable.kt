@@ -1,16 +1,14 @@
-package at.htl.breaknotifierandroid.Activities
+package at.htl.breaknotifierandroid.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import at.htl.breaknotifierandroid.Backend.Backend
-import at.htl.breaknotifierandroid.Backend.BackendJava
-import at.htl.breaknotifierandroid.R
+import at.htl.breaknotifierandroid.backend.BackendJava
 
-class timetable : AppCompatActivity() {
+class Timetable : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_timetable)
+        //setContentView(R.layout.activity_timetable)
         val backend = BackendJava()
         backend.getDailyTimeTable(MainActivity.static_cookie)
 
