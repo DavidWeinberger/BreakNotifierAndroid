@@ -17,11 +17,11 @@ import javax.ws.rs.core.NewCookie
 class MainActivity : AppCompatActivity() {
 
     internal val LOG_TAG = MainActivity::class.java.simpleName
-    private lateinit var school : School
+    private var school : School? = null
 
     companion object {
 
-        lateinit var static_cookie: NewCookie
+        var static_cookie: NewCookie? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,38 +39,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         bt_login.setOnClickListener {
-            if()
-            val username = this.et_username.text.toString()
-            val password = this.et_password.text.toString()
-            val backend = BackendJava()
-            var cookie: NewCookie? = backend.login(school.server, school.displayName, username, password)
-            if(cookie == null) {
-                Toast.makeText(this@MainActivity, "Passwort/Username falsch.", Toast.LENGTH_SHORT).show()
-                Toast.makeText(this@MainActivity, "The input is $username | $password" , Toast.LENGTH_LONG).show()
-            }
-            else{
-                static_cookie = cookie
-                val intent = Intent(this, Timetable::class.java)
-                startActivity(intent)
-            }
-            //val backend = Backend.getInstance()
+            if(this.school == null) {
+                Toast.makeText(this@MainActivity, "Please select a school first", Toast.LENGTH_SHORT).show()
 
-            //val loginSuccessful = backend.login(username, password)
+            } else {
+                val username = this.et_username.text.toString()
+                val password = this.et_password.text.toString()
+                val backend = BackendJava()
+                var cookie: NewCookie? = backend.login(school?.server, school?.displayName, username, password)
 
-            //Toast.makeText(this@MainActivity, if(loginSuccessful) "Login succeeded" else "Login failed", Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this@MainActivity, "The input is $username | $password" , Toast.LENGTH_LONG).show()
+                if (cookie == null) {
+                    Toast.makeText(this@MainActivity, "Login failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "The input was $username | $password", Toast.LENGTH_LONG).show()
+                } else {
+                    static_cookie = cookie
+                    val intent = Intent(this, Timetable::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        try {
-            if (::selection.is){
-                school = SchoolSelectionActivity.selection
-                tv_school.text = school.displayName
-            }
-        } catch (e : Exception) {
-            System.out.println("Schule wurde noch nicht ausgewählt");
+
+        if (SchoolSelectionActivity.selection != null) {
+            school = SchoolSelectionActivity.selection
+            tv_school.text = school?.displayName
         }
     }
 }
