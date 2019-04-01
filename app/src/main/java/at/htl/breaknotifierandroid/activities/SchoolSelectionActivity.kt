@@ -6,23 +6,19 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
+import at.htl.breaknotifierandroid.backend.School
 import kotlinx.android.synthetic.main.activity_school_selection.*
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import java.lang.Exception
 
-
-
-
 class SchoolSelectionActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
         getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
         setContentView(R.layout.activity_school_selection)
-        //var schools = Backend.getListOfSchools("HTBLA Leond")
 
         var output : JSONObject? = null
         et_filter.setOnEditorActionListener{
@@ -42,7 +38,7 @@ class SchoolSelectionActivity : AppCompatActivity() {
             val object1 = output?.get("result") as JSONObject
             val object2 = object1["schools"] as JSONArray
             val obj = object2[id.toInt()] as JSONObject
-            selection = obj
+            selection = School(server = obj.get("server").toString(), displayName = obj.get("loginName").toString())
             onSupportNavigateUp()
         }
     }
@@ -52,13 +48,14 @@ class SchoolSelectionActivity : AppCompatActivity() {
         return true
     }
 
-    public fun changer(names:List<String>){
+    private fun changer(names:List<String>){
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
-        lv_schools.adapter = adapter;
+        lv_schools.adapter = adapter
     }
 
 
     companion object {
-        lateinit var selection: JSONObject
+
+        lateinit var selection: School
     }
 }
