@@ -56,7 +56,6 @@ class SchoolSelectionActivity : AppCompatActivity() {
 
     companion object {
 
-        //lateinit var selection: School
         var selection: School? = null
     }
 }
