@@ -1,4 +1,4 @@
-package at.htl.breaknotifierandroid;
+package at.htl.breaknotifierandroid.backend;
 
 public class Subject {
     private String subjects;

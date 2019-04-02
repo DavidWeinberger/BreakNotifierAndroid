@@ -62,6 +62,9 @@ dependencies {
     implementation('com.googlecode.json-simple:json-simple:1.1.1') {
         exclude group: 'junit', module: 'junit'
     }
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+
 
     // https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client
     implementation group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.28'

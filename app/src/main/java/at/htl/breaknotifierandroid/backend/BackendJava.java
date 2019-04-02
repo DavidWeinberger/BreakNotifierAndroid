@@ -19,12 +19,16 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@XmlRootElement
 public class BackendJava {
     private static String serverName;
     private String idSearch = "wu_schulsuche-1542658388792";
@@ -169,7 +173,7 @@ public class BackendJava {
         return null;
     }
 
-    public List<String> getDailyTimeTable(NewCookie loginCookie){
+    public List<Subject> getDailyTimeTable(NewCookie loginCookie){
         Client client = ClientBuilder.newClient();
         WebTarget target;
         Response response;
@@ -177,18 +181,36 @@ public class BackendJava {
         target = client.target("https://" + serverName + "/WebUntis/api/app/config");
         response = target.request(MediaType.APPLICATION_JSON).cookie(loginCookie).get();
         try {
-            //JSONObject object = response.readEntity(JSONObject.class);
+            JSONObject object = response.readEntity(JSONObject.class);
 
-            String strings = response.readEntity(String.class);
-            //JSONObject obj = new JSONObject(strings);
 
-            //.getJSONObject("data").getJsonObject("loginServiceConfig").getJsonObject("user");
-            /*object = (JSONObject) object.get("data");
-            object = (JSONObject) object.get("loginServiceConfig");
-            object = (JSONObject) object.get("user");
-            //System.out.println(object);
-            int id = (int) object.get("personId");
-            int type = (int) object.get("roleId");*/
+            System.out.println(object);
+
+            LinkedHashMap<String, Object> ob = (LinkedHashMap<String, Object>) object.get("data");
+            LinkedHashMap<String, Object> ob1 = (LinkedHashMap<String, Object>) ob.get("loginServiceConfig");
+            LinkedHashMap<String, Object> ob2 = (LinkedHashMap<String, Object>) ob1.get("user");
+
+
+            int id = (int) ob2.get("personId");
+            int type = (int) ob2.get("roleId");
+
+            String dateCode = "20190402";
+
+            String url = "https://" + serverName + "/WebUntis/api/daytimetable/dayLesson?date="
+                    + dateCode + "&id=" + String.valueOf(id) + "&type=" + type;
+
+            target = client.target(url);
+            response = target.request(MediaType.APPLICATION_JSON).cookie(loginCookie).get();
+            object = response.readEntity(JSONObject.class);
+
+
+            LinkedHashMap<String,Object> tempObj = (LinkedHashMap<String, Object>) object.get("data");
+            ArrayList obj = (ArrayList) tempObj.get("dayTimeTable");
+            System.out.println(obj);
+            /*Todo
+                ArrayList auslesen und in  List<Subject> (Subject -> Lesson) umwandeln.
+                Tableview erstellen und darin ausgeben.
+             */
         }catch (Exception e){
             System.err.println("failed");
         }

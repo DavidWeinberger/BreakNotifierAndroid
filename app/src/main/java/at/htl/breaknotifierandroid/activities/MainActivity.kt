@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (cookie == null) {
                     Toast.makeText(this@MainActivity, "Login failed", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@MainActivity, "The input was $username | $password", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(this@MainActivity, "The input was $username | $password", Toast.LENGTH_LONG).show()
                 } else {
                     static_cookie = cookie
                     val intent = Intent(this, Timetable::class.java)
