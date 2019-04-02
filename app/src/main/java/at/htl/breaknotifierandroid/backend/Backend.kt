@@ -1,5 +1,7 @@
 package at.htl.breaknotifierandroid.backend
 
+import at.htl.breaknotifierandroid.model.School
+
 //import khttp.get as httpGet
 
 object Backend {

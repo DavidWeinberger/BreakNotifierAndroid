@@ -7,11 +7,8 @@ import android.os.Bundle
 import android.widget.Toast
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
-import at.htl.breaknotifierandroid.activities.SchoolSelectionActivity.Companion.selection
-import at.htl.breaknotifierandroid.backend.School
+import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.simple.JSONObject
-import java.lang.Exception
 import javax.ws.rs.core.NewCookie
 
 class MainActivity : AppCompatActivity() {

@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
-import at.htl.breaknotifierandroid.backend.School
+import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_school_selection.*
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
@@ -38,7 +38,10 @@ class SchoolSelectionActivity : AppCompatActivity() {
             val object1 = output?.get("result") as JSONObject
             val object2 = object1["schools"] as JSONArray
             val obj = object2[id.toInt()] as JSONObject
-            selection = School(server = obj.get("server").toString(), displayName = obj.get("loginName").toString())
+            selection = School(
+                server = obj.get("server").toString(),
+                displayName = obj.get("loginName").toString()
+            )
             onSupportNavigateUp()
         }
     }

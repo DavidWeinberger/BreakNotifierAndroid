@@ -1,6 +1,7 @@
-package at.htl.breaknotifierandroid.backend;
+package at.htl.breaknotifierandroid.model;
 
-public class Subject {
+public class Lesson
+{
     private String subjects;
     private String startTime;
     private String endTime;
@@ -8,7 +9,8 @@ public class Subject {
     private String room;
     private String teacher;
 
-    public Subject(String subjectsIn, String startTimeIn, String endTimeIn, String suppliertIn, String roomIn, String teacherIn){
+    public Lesson(String subjectsIn, String startTimeIn, String endTimeIn, String suppliertIn, String roomIn, String teacherIn)
+    {
         subjects = subjectsIn;
         startTime = startTimeIn;
         endTime=endTimeIn;
@@ -17,7 +19,8 @@ public class Subject {
         teacher = teacherIn;
     }
 
-    public Subject(String subjectsIn, String startTimeIn, String endTimeIn, String roomIn, String teacherIn){
+    public Lesson(String subjectsIn, String startTimeIn, String endTimeIn, String roomIn, String teacherIn)
+    {
         subjects = subjectsIn;
         startTime = startTimeIn;
         endTime=endTimeIn;
@@ -25,8 +28,6 @@ public class Subject {
         room = roomIn;
         teacher = teacherIn;
     }
-
-
 
     public String toString() {
 

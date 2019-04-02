@@ -1,6 +1,7 @@
 package at.htl.breaknotifierandroid.backend;
 
 import android.os.StrictMode;
+import at.htl.breaknotifierandroid.model.Lesson;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -22,15 +23,15 @@ import javax.ws.rs.core.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 @XmlRootElement
 public class BackendJava {
     private static String serverName;
+    private static DateTimeFormatter dateCodeFormatter = DateTimeFormatter.ofPattern("YYYYMMdd");
     private String idSearch = "wu_schulsuche-1542658388792";
 
     public BackendJava(){
@@ -173,7 +174,7 @@ public class BackendJava {
         return null;
     }
 
-    public List<Subject> getDailyTimeTable(NewCookie loginCookie){
+    public List<Lesson> getDailyTimeTable(NewCookie loginCookie){
         Client client = ClientBuilder.newClient();
         WebTarget target;
         Response response;
@@ -181,36 +182,45 @@ public class BackendJava {
         target = client.target("https://" + serverName + "/WebUntis/api/app/config");
         response = target.request(MediaType.APPLICATION_JSON).cookie(loginCookie).get();
         try {
-            JSONObject object = response.readEntity(JSONObject.class);
+            JSONObject responseObject = response.readEntity(JSONObject.class);
+            System.out.println(responseObject);
 
+            LinkedHashMap<String, Object> temp = (LinkedHashMap<String, Object>) responseObject.get("data");
+            temp = (LinkedHashMap<String, Object>) temp.get("loginServiceConfig");
+            temp = (LinkedHashMap<String, Object>) temp.get("user");
+            int id = (int) temp.get("personId");
+            int type = (int) temp.get("roleId");
 
-            System.out.println(object);
-
-            LinkedHashMap<String, Object> ob = (LinkedHashMap<String, Object>) object.get("data");
-            LinkedHashMap<String, Object> ob1 = (LinkedHashMap<String, Object>) ob.get("loginServiceConfig");
-            LinkedHashMap<String, Object> ob2 = (LinkedHashMap<String, Object>) ob1.get("user");
-
-
-            int id = (int) ob2.get("personId");
-            int type = (int) ob2.get("roleId");
-
-            String dateCode = "20190402";
+            //YYYYmmDD
+            //String dateCode = "20190402";
+            String dateCode = LocalDateTime.now().format(dateCodeFormatter);
 
             String url = "https://" + serverName + "/WebUntis/api/daytimetable/dayLesson?date="
                     + dateCode + "&id=" + String.valueOf(id) + "&type=" + type;
 
             target = client.target(url);
             response = target.request(MediaType.APPLICATION_JSON).cookie(loginCookie).get();
-            object = response.readEntity(JSONObject.class);
+            responseObject = response.readEntity(JSONObject.class);
 
 
-            LinkedHashMap<String,Object> tempObj = (LinkedHashMap<String, Object>) object.get("data");
+            LinkedHashMap<String,Object> tempObj = (LinkedHashMap<String, Object>) responseObject.get("data");
             ArrayList obj = (ArrayList) tempObj.get("dayTimeTable");
             System.out.println(obj);
             /*Todo
-                ArrayList auslesen und in  List<Subject> (Subject -> Lesson) umwandeln.
+                ArrayList auslesen und in  List<Lesson> (Lesson -> Lesson) umwandeln.
                 Tableview erstellen und darin ausgeben.
              */
+
+            List<Lesson> lessons = new LinkedList();
+
+            for(Object lesson : obj)
+            {
+                temp = (LinkedHashMap)lesson;
+                lessons.add(new Lesson((String)temp.get("subject"), ((Integer)temp.get("startTime")) + "", ((Integer)temp.get("endTime")) + "", (String)temp.get("room"), (String)temp.get("teacher")));
+            }
+
+            return lessons;
+
         }catch (Exception e){
             System.err.println("failed");
         }
