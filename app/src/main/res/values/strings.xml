@@ -6,4 +6,5 @@
     <string name="choose">Choose</string>
     <string name="login">Login</string>
     <string name="in_school">Enter schoolname</string>
+    <string name="timetableHeading">Today\'s Lessons:</string>
 </resources>
