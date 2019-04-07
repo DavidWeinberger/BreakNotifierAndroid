@@ -1,3 +1,3 @@
 package at.htl.breaknotifierandroid.model
 
-data class School(val displayName: String, val server: String)
+data class School(var displayName: String, var server: String)

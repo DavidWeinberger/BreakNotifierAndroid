@@ -23,10 +23,10 @@ class SchoolSelectionActivity : AppCompatActivity() {
         var output : JSONObject? = null
         et_filter.setOnEditorActionListener{
             textView, keyCde, keyEvent ->
-            var backend = BackendJava()
+            val backend = BackendJava()
             try {
                 output = backend.getSchools(textView.text.toString())
-                var names = backend.schools(output)
+                val names = backend.schools(output)
                 changer(names)
             }catch (e: Exception) {
                 Toast.makeText(this, "Zu viele Ergebnisse",Toast.LENGTH_SHORT).show()
@@ -38,10 +38,8 @@ class SchoolSelectionActivity : AppCompatActivity() {
             val object1 = output?.get("result") as JSONObject
             val object2 = object1["schools"] as JSONArray
             val obj = object2[id.toInt()] as JSONObject
-            selection = School(
-                server = obj.get("server").toString(),
-                displayName = obj.get("loginName").toString()
-            )
+            selection.server = obj.get("server").toString()
+            selection.displayName = obj.get("loginName").toString()
             onSupportNavigateUp()
         }
     }
@@ -59,6 +57,6 @@ class SchoolSelectionActivity : AppCompatActivity() {
 
     companion object {
 
-        var selection: School? = null
+        val selection: School = School("", "")
     }
 }
