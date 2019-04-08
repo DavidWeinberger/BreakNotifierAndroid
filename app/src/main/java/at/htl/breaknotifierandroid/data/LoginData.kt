@@ -4,14 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import at.htl.breaknotifierandroid.model.School
 
-class LoginData private constructor(context: Context) {
+class LoginData private constructor() {
 
     private lateinit var context: Context
     private lateinit var preferences: SharedPreferences
-
-    init {
-        this.setContext(context)
-    }
 
     private fun setContext(context: Context) {
         this.context = context
@@ -36,15 +32,11 @@ class LoginData private constructor(context: Context) {
     }
 
     companion object {
-        private lateinit var instance: LoginData
+        private val instance: LoginData by lazy { LoginData() }
 
         fun getInstance(context: Context): LoginData {
-            return if(!::instance.isInitialized) {
-                LoginData(context)
-            } else {
-                instance.setContext(context)
-                return instance
-            }
+            instance.setContext(context)
+            return instance
         }
     }
 }
