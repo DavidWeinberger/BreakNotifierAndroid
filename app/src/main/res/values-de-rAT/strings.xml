@@ -7,5 +7,6 @@
     <string name="choose">Auswählen</string>
     <string name="login">Anmelden</string>
     <string name="in_school">Schulnamen eingeben</string>
-    <string name="timetableHeading">Heutige Stunden:</string>
+    <string name="timetableHeading">Heutige Stunden</string>
+    <string name="bt_logout">Abmelden</string>
 </resources>

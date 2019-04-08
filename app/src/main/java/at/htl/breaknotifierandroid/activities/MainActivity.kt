@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun login() {
+        //TODO: check internet connection
+
         if(this.school.server == "" || this.school.displayName == "") {
             Toast.makeText(this@MainActivity, "Please select a school first", Toast.LENGTH_SHORT).show()
             //Toast.makeText(this@MainActivity, "name: " + this.school.displayName + " server: " + this.school.server, Toast.LENGTH_SHORT)

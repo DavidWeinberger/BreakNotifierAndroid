@@ -40,7 +40,7 @@ public class BackendJava {
         StrictMode.setThreadPolicy(policy);
     }
 
-    public JSONObject getSchools(String input) throws JSONException {
+    public JSONObject getSchools(String input) {
         /*if (Looper.myLooper() == null){
             Looper.prepare();
         }
@@ -206,10 +206,6 @@ public class BackendJava {
             LinkedHashMap<String,Object> tempObj = (LinkedHashMap<String, Object>) responseObject.get("data");
             ArrayList obj = (ArrayList) tempObj.get("dayTimeTable");
             System.out.println(obj);
-            /*Todo
-                ArrayList auslesen und in  List<Lesson> (Lesson -> Lesson) umwandeln.
-                Tableview erstellen und darin ausgeben.
-             */
 
             List<Lesson> lessons = new LinkedList();
 

@@ -23,6 +23,15 @@ class LoginData private constructor() {
         editor.apply()
     }
 
+    fun resetData() {
+        val editor = this.preferences.edit()
+        editor.putString(SharedPreferencesKeys.SCHOOL_NAME.key, "")
+        editor.putString(SharedPreferencesKeys.SCHOOL_URL.key, "")
+        editor.putString(SharedPreferencesKeys.USERNAME.key, "")
+        editor.putString(SharedPreferencesKeys.PASSWORD.key, "")
+        editor.apply()
+    }
+
     fun getSchool(): School {
         return School(this.preferences.getString(SharedPreferencesKeys.SCHOOL_NAME.key, ""), this.preferences.getString(SharedPreferencesKeys.SCHOOL_URL.key, ""))
     }

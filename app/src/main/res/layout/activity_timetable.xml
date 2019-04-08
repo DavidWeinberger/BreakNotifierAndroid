@@ -11,13 +11,20 @@
             android:text="@string/timetableHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_header" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="36sp" android:typeface="monospace" android:layout_marginTop="15dp"/>
+            android:id="@+id/tv_header"
+            android:textSize="36sp" android:typeface="monospace"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="20dp"/>
     <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             tools:layout_editor_absoluteX="105dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_header" android:layout_marginTop="15dp"
             app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/lv_lessons"/>
+    <Button
+            android:text="@string/bt_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_logout" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="20dp"/>
 </android.support.constraint.ConstraintLayout>
