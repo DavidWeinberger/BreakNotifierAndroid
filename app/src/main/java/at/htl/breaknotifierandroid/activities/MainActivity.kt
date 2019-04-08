@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.title = "Break Notifier"
-
+        pb_login.setWillNotDraw(true);
         val userData = this.preferences.getUserData()
         this.et_username.setText(userData.first)
         this.et_password.setText(userData.second)
@@ -46,8 +46,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         bt_login.setOnClickListener {
+            pb_login.setWillNotDraw(false)
+
             this.login()
+
+            //Thread.sleep(1000)
+
+            //pb_login.setWillNotDraw(true)
         }
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        pb_login.setWillNotDraw(true)
     }
 
     private fun login() {
@@ -57,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Please select a school first", Toast.LENGTH_SHORT).show()
             //Toast.makeText(this@MainActivity, "name: " + this.school.displayName + " server: " + this.school.server, Toast.LENGTH_SHORT)
             Log.i("MainActivity.login()", "name: " + this.school.displayName + " server: " + this.school.server)
-
+            this.onResumeFragments()
         } else {
             val username = this.et_username.text.toString()
             val password = this.et_password.text.toString()
@@ -66,6 +77,7 @@ class MainActivity : AppCompatActivity() {
 
             if (cookie == null) {
                 Toast.makeText(this@MainActivity, "Login failed", Toast.LENGTH_SHORT).show()
+                this.onResumeFragments()
                 //Toast.makeText(this@MainActivity, "The input was $username | $password", Toast.LENGTH_LONG).show()
             } else {
                 static_cookie = cookie
