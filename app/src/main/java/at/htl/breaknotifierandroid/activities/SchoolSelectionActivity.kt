@@ -1,5 +1,7 @@
 package at.htl.breaknotifierandroid.activities
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -25,13 +27,15 @@ class SchoolSelectionActivity : AppCompatActivity() {
             textView, keyCde, keyEvent ->
             val backend = BackendJava()
             try {
+                if(!(checkNetworkConnection())) {
+                    Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_SHORT)
+                }
                 output = backend.getSchools(textView.text.toString())
                 val names = backend.schools(output)
                 changer(names)
-            }catch (e: Exception) {
-                Toast.makeText(this, "Zu viele Ergebnisse",Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Zu viele Ergebnisse", Toast.LENGTH_SHORT).show()
             }
-
             true
         }
         lv_schools.setOnItemClickListener { parent, view, position, id ->
@@ -42,6 +46,15 @@ class SchoolSelectionActivity : AppCompatActivity() {
             selection.displayName = obj.get("loginName").toString()
             onSupportNavigateUp()
         }
+    }
+
+    private fun checkNetworkConnection(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager && connectivityManager != null) {
+            val networkInfo = connectivityManager.activeNetworkInfo
+            networkInfo.isConnected
+        }
+        else false
     }
 
     override fun onSupportNavigateUp(): Boolean {
