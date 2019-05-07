@@ -27,12 +27,14 @@ class SchoolSelectionActivity : AppCompatActivity() {
             textView, keyCde, keyEvent ->
             val backend = BackendJava()
             try {
-                if(!(checkNetworkConnection())) {
-                    Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_SHORT)
+                var connected: Boolean = checkNetworkConnection()
+                if(!connected) {
+                    Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_SHORT).show()
+                } else {
+                    output = backend.getSchools(textView.text.toString())
+                    val names = backend.schools(output)
+                    changer(names)
                 }
-                output = backend.getSchools(textView.text.toString())
-                val names = backend.schools(output)
-                changer(names)
             } catch (e: Exception) {
                 Toast.makeText(this, "Zu viele Ergebnisse", Toast.LENGTH_SHORT).show()
             }
@@ -52,7 +54,11 @@ class SchoolSelectionActivity : AppCompatActivity() {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
         return if (connectivityManager is ConnectivityManager && connectivityManager != null) {
             val networkInfo = connectivityManager.activeNetworkInfo
-            networkInfo.isConnected
+            if(networkInfo != null) {
+                networkInfo.isConnected
+            } else {
+                false
+            }
         }
         else false
     }
