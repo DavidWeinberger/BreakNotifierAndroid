@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
+import at.htl.breaknotifierandroid.backend.ConnectionChecker
 import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_school_selection.*
 import org.json.simple.JSONArray
@@ -27,7 +28,7 @@ class SchoolSelectionActivity : AppCompatActivity() {
             textView, keyCde, keyEvent ->
             val backend = BackendJava()
             try {
-                var connected: Boolean = checkNetworkConnection()
+                val connected: Boolean = ConnectionChecker.checkNetworkConnection(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
                 if(!connected) {
                     Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_SHORT).show()
                 } else {
@@ -50,18 +51,7 @@ class SchoolSelectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkNetworkConnection(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
-        return if (connectivityManager is ConnectivityManager && connectivityManager != null) {
-            val networkInfo = connectivityManager.activeNetworkInfo
-            if(networkInfo != null) {
-                networkInfo.isConnected
-            } else {
-                false
-            }
-        }
-        else false
-    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
