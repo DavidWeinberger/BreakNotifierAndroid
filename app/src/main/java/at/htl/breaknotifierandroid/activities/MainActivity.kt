@@ -12,7 +12,6 @@ import at.htl.breaknotifierandroid.R
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.backend.ConnectionChecker
 import at.htl.breaknotifierandroid.data.LoginData
-import at.htl.breaknotifierandroid.data.SharedPreferencesKeys
 import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.ws.rs.core.NewCookie
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val preferences: LoginData by lazy { LoginData.getInstance(this) }
-    internal val LOG_TAG = MainActivity::class.java.simpleName
+    //internal val LOG_TAG = MainActivity::class.java.simpleName
     private val school : School by lazy { this.preferences.getSchool() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar!!.title = "Break Notifier"
-        pb_login.setWillNotDraw(true);
+        pb_login.setWillNotDraw(true)
         val userData = this.preferences.getUserData()
         this.et_username.setText(userData.first)
         this.et_password.setText(userData.second)
