@@ -1,11 +1,14 @@
 package at.htl.breaknotifierandroid.activities
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.R
+import at.htl.breaknotifierandroid.backend.ConnectionChecker
 import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_school_selection.*
 import org.json.simple.JSONArray
@@ -25,13 +28,17 @@ class SchoolSelectionActivity : AppCompatActivity() {
             textView, keyCde, keyEvent ->
             val backend = BackendJava()
             try {
-                output = backend.getSchools(textView.text.toString())
-                val names = backend.schools(output)
-                changer(names)
-            }catch (e: Exception) {
-                Toast.makeText(this, "Zu viele Ergebnisse",Toast.LENGTH_SHORT).show()
+                val connected: Boolean = ConnectionChecker.checkNetworkConnection(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+                if(!connected) {
+                    Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_SHORT).show()
+                } else {
+                    output = backend.getSchools(textView.text.toString())
+                    val names = backend.schools(output)
+                    changer(names)
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "Zu viele Ergebnisse", Toast.LENGTH_SHORT).show()
             }
-
             true
         }
         lv_schools.setOnItemClickListener { parent, view, position, id ->
@@ -43,6 +50,8 @@ class SchoolSelectionActivity : AppCompatActivity() {
             onSupportNavigateUp()
         }
     }
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

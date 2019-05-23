@@ -1,7 +1,9 @@
 package at.htl.breaknotifierandroid.activities
 
 //import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -9,8 +11,8 @@ import android.util.Log
 import android.widget.Toast
 import at.htl.breaknotifierandroid.R
 import at.htl.breaknotifierandroid.backend.BackendJava
+import at.htl.breaknotifierandroid.backend.ConnectionChecker
 import at.htl.breaknotifierandroid.data.LoginData
-import at.htl.breaknotifierandroid.data.SharedPreferencesKeys
 import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.ws.rs.core.NewCookie
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val preferences: LoginData by lazy { LoginData.getInstance(this) }
-    internal val LOG_TAG = MainActivity::class.java.simpleName
+    //internal val LOG_TAG = MainActivity::class.java.simpleName
     private val school : School by lazy { this.preferences.getSchool() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         supportActionBar!!.title = "Break Notifier"
-        pb_login.setWillNotDraw(true);
+        pb_login.setWillNotDraw(true)
         val userData = this.preferences.getUserData()
         this.et_username.setText(userData.first)
         this.et_password.setText(userData.second)
@@ -61,10 +63,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         bt_login.setOnClickListener {
-            pb_login.setWillNotDraw(false)
 
             this.login()
-
             //Thread.sleep(1000)
 
             //pb_login.setWillNotDraw(true)
@@ -77,10 +77,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        //TODO: check internet connection
-
-        if(this.school.server == "" || this.school.displayName == "") {
-            Toast.makeText(this@MainActivity, "Please select a school first", Toast.LENGTH_SHORT).show()
+        val connected: Boolean = ConnectionChecker.checkNetworkConnection(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+        if(!connected) {
+            Toast.makeText(this, "Keine Internetverbindung", Toast.LENGTH_SHORT).show()
+        } else if(this.school.server == "" || this.school.displayName == "") {
+            Toast.makeText(this@MainActivity, "Keine Schule gewählt", Toast.LENGTH_SHORT).show()
             //Toast.makeText(this@MainActivity, "name: " + this.school.displayName + " server: " + this.school.server, Toast.LENGTH_SHORT)
             Log.i("MainActivity.login()", "name: " + this.school.displayName + " server: " + this.school.server)
             this.onResumeFragments()
@@ -91,10 +92,11 @@ class MainActivity : AppCompatActivity() {
             val cookie: NewCookie? = backend.login(school.server, school.displayName, username, password)
 
             if (cookie == null) {
-                Toast.makeText(this@MainActivity, "Login failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "Login fehlgeschlagen", Toast.LENGTH_SHORT).show()
                 this.onResumeFragments()
                 //Toast.makeText(this@MainActivity, "The input was $username | $password", Toast.LENGTH_LONG).show()
             } else {
+                pb_login.setWillNotDraw(false)
                 static_cookie = cookie
                 val intent = Intent(this, Timetable::class.java)
                 startActivity(intent)
