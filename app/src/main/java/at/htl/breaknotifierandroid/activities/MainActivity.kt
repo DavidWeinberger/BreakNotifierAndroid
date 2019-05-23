@@ -3,6 +3,7 @@ package at.htl.breaknotifierandroid.activities
 //import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
@@ -16,8 +17,14 @@ import javax.ws.rs.core.NewCookie
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+    }
+
+    companion object {
+        var splashRunned: Boolean = false;
         var static_cookie: NewCookie? = null
     }
 
@@ -26,8 +33,16 @@ class MainActivity : AppCompatActivity() {
     private val school : School by lazy { this.preferences.getSchool() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (splashRunned){
+            splashRunned = true
+            val intent = Intent(this, SplashScreen::class.java)
+            startActivity(intent)
+        }
 
         super.onCreate(savedInstanceState)
+
+
+
         setContentView(R.layout.activity_main)
         supportActionBar!!.title = "Break Notifier"
         pb_login.setWillNotDraw(true);
