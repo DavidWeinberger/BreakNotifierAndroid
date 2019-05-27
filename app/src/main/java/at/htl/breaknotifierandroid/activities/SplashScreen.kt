@@ -15,10 +15,7 @@ class SplashScreen : AppCompatActivity() {
         Thread {
             start()
         }.start()
-
-
-
-
+        supportActionBar?.hide()
     }
 
     private fun start(){
@@ -27,6 +24,4 @@ class SplashScreen : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-
 }

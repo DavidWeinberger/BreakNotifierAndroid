@@ -35,17 +35,15 @@ class MainActivity : AppCompatActivity() {
     private val school : School by lazy { this.preferences.getSchool() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (splashRunned){
-            splashRunned = true
-            val intent = Intent(this, SplashScreen::class.java)
-            startActivity(intent)
-        }
+
 
         super.onCreate(savedInstanceState)
 
 
 
         setContentView(R.layout.activity_main)
+
+
         supportActionBar!!.title = "Break Notifier"
         pb_login.setWillNotDraw(true)
         val userData = this.preferences.getUserData()
