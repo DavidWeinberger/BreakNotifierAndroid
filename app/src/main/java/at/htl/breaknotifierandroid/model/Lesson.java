@@ -9,6 +9,10 @@ public class Lesson
     private String room;
     private String teacher;
 
+    public String getSubjects(){
+        return subjects;
+    }
+
     public Lesson(String subjectsIn, String startTimeIn, String endTimeIn, String suppliertIn, String roomIn, String teacherIn)
     {
         subjects = subjectsIn;
