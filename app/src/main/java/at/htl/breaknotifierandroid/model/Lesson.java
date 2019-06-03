@@ -29,6 +29,10 @@ public class Lesson
         teacher = teacherIn;
     }
 
+    public String getEndTime(){
+        return endTime;
+    }
+
     public String toString() {
 
         return subjects + "\t\t" + startTime + "-" + endTime + "\t\t" + teacher + "\t\t\t" + room + "\t\t\t" + suppliert;
