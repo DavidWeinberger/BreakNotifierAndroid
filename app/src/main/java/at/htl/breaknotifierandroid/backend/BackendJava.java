@@ -174,7 +174,7 @@ public class BackendJava {
         return null;
     }
 
-    public List<Lesson> getDailyTimeTable(NewCookie loginCookie){
+    public ArrayList<Lesson> getDailyTimeTable(NewCookie loginCookie){
         Client client = ClientBuilder.newClient();
         WebTarget target;
         Response response;
@@ -207,7 +207,7 @@ public class BackendJava {
             ArrayList obj = (ArrayList) tempObj.get("dayTimeTable");
             System.out.println(obj);
 
-            List<Lesson> lessons = new LinkedList();
+            ArrayList<Lesson> lessons = new ArrayList<Lesson>();
 
             for(Object lesson : obj)
             {

@@ -18,13 +18,22 @@
     <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:layout_editor_absoluteX="105dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_header" android:layout_marginTop="15dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/lv_lessons"/>
+            android:id="@+id/lv_lessons"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintBottom_toTopOf="@+id/bt_joinLessons"/>
     <Button
             android:text="@string/bt_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bt_logout" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="20dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="20dp"/>
+    <Button
+            android:text="@string/bt_joinLessons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_joinLessons"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 </android.support.constraint.ConstraintLayout>

@@ -12,8 +12,8 @@ import android.widget.ArrayAdapter
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.data.LoginData
 import at.htl.breaknotifierandroid.model.Lesson
+import at.htl.breaknotifierandroid.model.TimetableAdapter
 import kotlinx.android.synthetic.main.activity_timetable.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import at.htl.breaknotifierandroid.R as projectR
@@ -36,9 +36,9 @@ class Timetable : AppCompatActivity() {
 
 
         val backend = BackendJava()
-        var lessons = backend.getDailyTimeTable(MainActivity.static_cookie)
+        var lessons: ArrayList<Lesson> = backend.getDailyTimeTable(MainActivity.static_cookie) as ArrayList<Lesson>
 
-        val adapter = ArrayAdapter(this, R.layout.simple_list_item_1, lessons)
+        val adapter: TimetableAdapter = TimetableAdapter(this, lessons, true)
         lv_lessons.adapter = adapter
 
 
@@ -54,6 +54,9 @@ class Timetable : AppCompatActivity() {
             this.onBackPressed()
         }
 
+        this.bt_joinLessons.setOnClickListener {
+            (this.lv_lessons.adapter as TimetableAdapter).joinSelectedLessons()
+        }
     }
 
     private fun check(lessons : MutableList<Lesson>){
@@ -62,15 +65,15 @@ class Timetable : AppCompatActivity() {
 
         var temp : MutableList<Lesson> = mutableListOf()
         var count = 0
-        for( i in lessons){
-            val current = LocalDateTime.now();
+        for( l in lessons){
+            val current = LocalDateTime.now()
 
             val formatter = DateTimeFormatter.ofPattern("HHmm")
-            val formatted = current.format(formatter);
-            if (i.endTime.toInt() <  formatted.toInt()){
+            val formatted = current.format(formatter)
+            if (l.endTime.toInt() == formatted.toInt()){
                 //lessons.removeAt(0)
-                //lessons.remove(i)
-                temp.add(i)
+                //lessons.remove(l)
+                temp.add(l)
                 count++
                 //println(lessons.drop(0))
             }

@@ -8,6 +8,8 @@ public class Lesson
     private String suppliert;
     private String room;
     private String teacher;
+    //One break unit = 5min => recess = 3 break units
+    public Integer skipBreakUnits = 0;
 
     public String getSubjects(){
         return subjects;
@@ -40,5 +42,15 @@ public class Lesson
     public String toString() {
 
         return subjects + "\t\t" + startTime + "-" + endTime + "\t\t" + teacher + "\t\t\t" + room + "\t\t\t" + suppliert;
+    }
+
+    public void setEndTime(String endTime)
+    {
+        this.endTime = endTime;
+    }
+
+    public String getStartTime()
+    {
+        return this.startTime;
     }
 }
