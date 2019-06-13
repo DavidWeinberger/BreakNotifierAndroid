@@ -1,5 +1,7 @@
 package at.htl.breaknotifierandroid.model;
 
+import java.util.ArrayList;
+
 public class Lesson
 {
     private String subjects;
@@ -52,5 +54,14 @@ public class Lesson
     public String getStartTime()
     {
         return this.startTime;
+    }
+
+    public void copy(Lesson other) {
+        this.subjects = other.subjects;
+        this.startTime = other.startTime;
+        this.endTime = other.endTime;
+        this.suppliert = other.suppliert;
+        this.room = other.room;
+        this.teacher = other.teacher;
     }
 }

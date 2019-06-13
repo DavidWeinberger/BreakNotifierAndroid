@@ -56,8 +56,16 @@ class Timetable : AppCompatActivity() {
 
         this.bt_joinLessons.setOnClickListener {
             (this.lv_lessons.adapter as TimetableAdapter).joinSelectedLessons()
+            lessons =  backend.getDailyTimeTable(MainActivity.static_cookie) as ArrayList<Lesson>
+            (this.lv_lessons.adapter as TimetableAdapter).changeItems(lessons)
         }
-    }
+
+        this.bt_unjoinLessons.setOnClickListener {
+            lessons =  backend.getDailyTimeTable(MainActivity.static_cookie) as ArrayList<Lesson>
+            (this.lv_lessons.adapter as TimetableAdapter).changeItems(lessons)
+            (this.lv_lessons.adapter as TimetableAdapter).resetSelection()
+        }
+        }
 
     private fun check(lessons : MutableList<Lesson>){
 

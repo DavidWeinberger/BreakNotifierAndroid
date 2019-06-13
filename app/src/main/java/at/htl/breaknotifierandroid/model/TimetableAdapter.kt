@@ -9,8 +9,9 @@ import at.htl.breaknotifierandroid.R
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import kotlin.math.min
 
-class TimetableAdapter(val context: Context, val items: ArrayList<Lesson>, isListView: Boolean) : BaseAdapter() {
+class TimetableAdapter(val context: Context, var items: ArrayList<Lesson>, isListView: Boolean) : BaseAdapter() {
 
     companion object {
         val TAG = TimetableAdapter::class.java.simpleName
@@ -18,6 +19,7 @@ class TimetableAdapter(val context: Context, val items: ArrayList<Lesson>, isLis
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private val selectedItems: BooleanArray = BooleanArray(items.size)
+    private val checkBoxes: MutableList<CheckBox> = mutableListOf()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val rowView = inflater.inflate(R.layout.list_item_with_checkbox, parent, false)
@@ -28,6 +30,7 @@ class TimetableAdapter(val context: Context, val items: ArrayList<Lesson>, isLis
         checkBox.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
             this.selectedItems[position] = b
         }
+        this.checkBoxes.add(checkBox)
         textView.text = item.toString()
         return rowView
     }
@@ -61,6 +64,19 @@ class TimetableAdapter(val context: Context, val items: ArrayList<Lesson>, isLis
             } else if (firstJoinedLesson != null) {
                 firstJoinedLesson = null
             }
+        }
+    }
+
+    fun changeItems(items: ArrayList<Lesson>) {
+        for(i in 0 until min(items.size, this.items.size)) {
+            this.items[i].copy(items[i])
+        }
+    }
+
+    fun resetSelection() {
+        for(i in 0 until this.selectedItems.size) {
+            this.selectedItems[i] = false
+            this.checkBoxes[i].isChecked = false
         }
     }
 }
