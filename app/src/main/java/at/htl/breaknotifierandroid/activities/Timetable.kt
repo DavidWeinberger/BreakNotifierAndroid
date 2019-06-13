@@ -6,6 +6,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
+import android.media.RingtoneManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -120,9 +121,8 @@ class Timetable : AppCompatActivity() {
     private fun createNotificationChannel(id: String, name: String,
                                           description: String) {
 
-        val importance = NotificationManager.IMPORTANCE_LOW
+        val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel(id, name, importance)
-
         channel.description = description
         channel.enableLights(true)
         channel.lightColor = Color.RED
