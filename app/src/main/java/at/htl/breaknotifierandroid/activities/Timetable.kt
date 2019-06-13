@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter
 import at.htl.breaknotifierandroid.R as projectR
 
 class Timetable : AppCompatActivity() {
+    private var adapter : TimetableAdapter? = null
     private var notificationManager: NotificationManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +39,20 @@ class Timetable : AppCompatActivity() {
         val backend = BackendJava()
         var lessons: ArrayList<Lesson> = backend.getDailyTimeTable(MainActivity.static_cookie) as ArrayList<Lesson>
 
-        val adapter: TimetableAdapter = TimetableAdapter(this, lessons, true)
+        adapter = TimetableAdapter(this, lessons, true)
         lv_lessons.adapter = adapter
 
 
         Thread {
             while (true) {
-                this.check(lessons)
+                var deleting = this.check(lessons)
+                if(deleting > 0){
+                    for (x in 0 until deleting){
+                        lessons.removeAt(0);
+                    }
+                    //updateUI();
+                }
+
                 Thread.sleep(30000)
             }
         }.start()
@@ -59,18 +67,22 @@ class Timetable : AppCompatActivity() {
         }
     }
 
-    private fun check(lessons : MutableList<Lesson>){
+    private fun updateUI(){
+        adapter?.notifyDataSetChanged();
+    }
+
+    private fun check(lessons : MutableList<Lesson>): Int {
 
         val channelID = "at.htl.Breaknotifier.notification"
-
+        var formatted = "";
         var temp : MutableList<Lesson> = mutableListOf()
         var count = 0
         for( l in lessons){
             val current = LocalDateTime.now()
 
             val formatter = DateTimeFormatter.ofPattern("HHmm")
-            val formatted = current.format(formatter)
-            if (l.endTime.toInt() == formatted.toInt()){
+            formatted = current.format(formatter)
+            if (l.endTime.toInt() <= formatted.toInt()){
                 //lessons.removeAt(0)
                 //lessons.remove(l)
                 temp.add(l)
@@ -91,6 +103,18 @@ class Timetable : AppCompatActivity() {
 
             notificationManager!!.notify(1, notification)
         }
+        else if(lessons.first().startTime.toInt()-3 == formatted.toInt()){
+            val notification = Notification.Builder(this,
+                channelID)
+                .setContentTitle("Nächste Stunde")
+                .setContentText(lessons.first().subjects+ " im Raum: " + lessons.first().room)
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setChannelId(channelID)
+                .build()
+
+            notificationManager!!.notify(2, notification)
+        }
+        return temp.size;
     }
 
     private fun createNotificationChannel(id: String, name: String,
