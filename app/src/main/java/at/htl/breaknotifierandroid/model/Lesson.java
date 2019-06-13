@@ -16,6 +16,7 @@ public class Lesson
     public String getSubjects(){
         return subjects;
     }
+    public String getRoom() { return room; }
 
     public Lesson(String subjectsIn, String startTimeIn, String endTimeIn, String suppliertIn, String roomIn, String teacherIn)
     {
