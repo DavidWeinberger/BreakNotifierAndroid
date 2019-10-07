@@ -4,14 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.TextView
 import at.htl.breaknotifierandroid.R
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.min
 
-class TimetableAdapter(val context: Context, var items: ArrayList<Lesson>, isListView: Boolean) : BaseAdapter() {
+class TimetableAdapter(
+    val context: Context,
+    var items: ArrayList<Lesson>
+) : BaseAdapter() {
 
     companion object {
         val TAG = TimetableAdapter::class.java.simpleName
@@ -27,7 +32,7 @@ class TimetableAdapter(val context: Context, var items: ArrayList<Lesson>, isLis
         val textView = rowView.findViewById<TextView>(R.id.tv_lessonInfo)
         val item = this.items[position]
 
-        checkBox.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+        checkBox.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
             this.selectedItems[position] = b
         }
         this.checkBoxes.add(checkBox)

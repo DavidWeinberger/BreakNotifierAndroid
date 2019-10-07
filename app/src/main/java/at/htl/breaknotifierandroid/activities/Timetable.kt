@@ -1,15 +1,12 @@
 package at.htl.breaknotifierandroid.activities
 
-import android.R
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
-import android.media.RingtoneManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.data.LoginData
 import at.htl.breaknotifierandroid.model.Lesson
@@ -40,7 +37,7 @@ class Timetable : AppCompatActivity() {
         val backend = BackendJava()
         var lessons: ArrayList<Lesson> = backend.getDailyTimeTable(MainActivity.static_cookie) as ArrayList<Lesson>
 
-        adapter = TimetableAdapter(this, lessons, true)
+        adapter = TimetableAdapter(this, lessons)
         lv_lessons.adapter = adapter
 
 

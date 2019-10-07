@@ -1,9 +1,9 @@
 package at.htl.breaknotifierandroid.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import at.htl.breaknotifierandroid.R
 import kotlin.concurrent.thread
 

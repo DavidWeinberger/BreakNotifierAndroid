@@ -17,11 +17,11 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".activities.MainActivity"
-                android:screenOrientation="portrait">
+                android:screenOrientation="fullSensor">
         </activity>
         <activity
                 android:name=".activities.SplashScreen"
-                android:screenOrientation="portrait"
+                android:screenOrientation="fullSensor"
                 android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,11 +31,11 @@
         </activity>
         <activity
                 android:name=".activities.Timetable"
-                android:screenOrientation="portrait">
+                android:screenOrientation="fullSensor">
         </activity>
         <activity
                 android:name=".activities.SchoolSelectionActivity"
-                android:screenOrientation="portrait">
+                android:screenOrientation="fullSensor">
         </activity>
     </application>
 

@@ -6,9 +6,9 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import at.htl.breaknotifierandroid.R
 import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.backend.ConnectionChecker

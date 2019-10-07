@@ -2,18 +2,17 @@ package at.htl.breaknotifierandroid.activities
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import at.htl.breaknotifierandroid.backend.BackendJava
+import androidx.appcompat.app.AppCompatActivity
 import at.htl.breaknotifierandroid.R
+import at.htl.breaknotifierandroid.backend.BackendJava
 import at.htl.breaknotifierandroid.backend.ConnectionChecker
 import at.htl.breaknotifierandroid.model.School
 import kotlinx.android.synthetic.main.activity_school_selection.*
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
-import java.lang.Exception
 
 class SchoolSelectionActivity : AppCompatActivity() {
 
@@ -25,7 +24,7 @@ class SchoolSelectionActivity : AppCompatActivity() {
 
         var output : JSONObject? = null
         et_filter.setOnEditorActionListener{
-            textView, keyCde, keyEvent ->
+                textView, _, _ ->
             val backend = BackendJava()
             try {
                 val connected: Boolean = ConnectionChecker.checkNetworkConnection(getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
@@ -41,7 +40,7 @@ class SchoolSelectionActivity : AppCompatActivity() {
             }
             true
         }
-        lv_schools.setOnItemClickListener { parent, view, position, id ->
+        lv_schools.setOnItemClickListener { _, _, _, id ->
             val object1 = output?.get("result") as JSONObject
             val object2 = object1["schools"] as JSONArray
             val obj = object2[id.toInt()] as JSONObject
