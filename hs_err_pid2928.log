@@ -1,0 +1,165 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes for AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (memory/allocation.inline.hpp:61), pid=2928, tid=0x0000000000000968
+#
+# JRE version:  (8.0_212-b04) (build )
+# Java VM: OpenJDK 64-Bit Server VM (25.212-b04 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000000025b2800):  JavaThread "Unknown thread" [_thread_in_vm, id=2408, stack(0x00000000024b0000,0x00000000025b0000)]
+
+Stack: [0x00000000024b0000,0x00000000025b0000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x00000000025b2800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=2408, stack(0x00000000024b0000,0x00000000025b0000)]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000000a0000000, size: 1536 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 37888K, used 655K [0x00000000e0000000, 0x00000000e2a00000, 0x0000000100000000)
+  eden space 32768K, 2% used [0x00000000e0000000,0x00000000e00a3d80,0x00000000e2000000)
+  from space 5120K, 0% used [0x00000000e2500000,0x00000000e2500000,0x00000000e2a00000)
+  to   space 5120K, 0% used [0x00000000e2000000,0x00000000e2000000,0x00000000e2500000)
+ ParOldGen       total 86016K, used 0K [0x00000000a0000000, 0x00000000a5400000, 0x00000000e0000000)
+  object space 86016K, 0% used [0x00000000a0000000,0x00000000a0000000,0x00000000a5400000)
+ Metaspace       used 778K, capacity 4480K, committed 4480K, reserved 1056768K
+  class space    used 74K, capacity 384K, committed 384K, reserved 1048576K
+
+Card table byte_map: [0x0000000011a70000,0x0000000011d80000] byte_map_base: 0x0000000011570000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000060a59f30
+ Begin Bits: [0x0000000012780000, 0x0000000013f80000)
+ End Bits:   [0x0000000013f80000, 0x0000000015780000)
+
+Polling page: 0x00000000003f0000
+
+CodeCache: size=245760Kb used=328Kb max_used=328Kb free=245431Kb
+ bounds [0x00000000026b0000, 0x0000000002920000, 0x00000000116b0000]
+ total_blobs=57 nmethods=0 adapters=38
+ compilation: enabled
+
+Compilation events (0 events):
+No events
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.035 loading class java/lang/Short
+Event: 0.035 loading class java/lang/Short done
+Event: 0.035 loading class java/lang/Integer
+Event: 0.035 loading class java/lang/Integer done
+Event: 0.035 loading class java/lang/Long
+Event: 0.036 loading class java/lang/Long done
+Event: 0.036 loading class java/lang/NullPointerException
+Event: 0.036 loading class java/lang/NullPointerException done
+Event: 0.036 loading class java/lang/ArithmeticException
+Event: 0.036 loading class java/lang/ArithmeticException done
+
+
+Dynamic libraries:
+0x00007ff60d9d0000 - 0x00007ff60da01000 	C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\jre\bin\java.exe
+0x00007ffd58740000 - 0x00007ffd58930000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffd58640000 - 0x00007ffd586f2000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffd55730000 - 0x00007ffd559d3000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffd568f0000 - 0x00007ffd56993000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffd57490000 - 0x00007ffd5752e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffd567f0000 - 0x00007ffd56887000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffd579a0000 - 0x00007ffd57ac0000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffd581f0000 - 0x00007ffd58384000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffd55c00000 - 0x00007ffd55c21000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffd57f80000 - 0x00007ffd57fa6000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffd56600000 - 0x00007ffd56794000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffd559e0000 - 0x00007ffd55a7e000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffd55a80000 - 0x00007ffd55b7a000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffd44520000 - 0x00007ffd447a5000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.418_none_e6c6b287130d565d\COMCTL32.dll
+0x00007ffd57c40000 - 0x00007ffd57f76000 	C:\WINDOWS\System32\combase.dll
+0x00007ffd55b80000 - 0x00007ffd55c00000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffd58610000 - 0x00007ffd5863e000 	C:\WINDOWS\System32\IMM32.DLL
+0x00000000600d0000 - 0x00000000601a2000 	C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\jre\bin\msvcr100.dll
+0x0000000060290000 - 0x0000000060ad6000 	C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\jre\bin\server\jvm.dll
+0x00007ffd58550000 - 0x00007ffd58558000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffd3dd00000 - 0x00007ffd3dd09000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffd51490000 - 0x00007ffd514b4000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffd4e690000 - 0x00007ffd4e69a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffd58020000 - 0x00007ffd5808f000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffd51170000 - 0x00007ffd5119d000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffd567a0000 - 0x00007ffd567ea000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00007ffd20260000 - 0x00007ffd2026f000 	C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\jre\bin\verify.dll
+0x00007ffd15080000 - 0x00007ffd150a9000 	C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\jre\bin\java.dll
+0x00007ffd15060000 - 0x00007ffd15076000 	C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\jre\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Djava.awt.headless=true -Djava.rmi.server.hostname=127.0.0.1 -Xmx1536m -Dkotlin.environment.keepalive 
+java_command: org.jetbrains.kotlin.daemon.KotlinCompileDaemon --daemon-runFilesPath C:\Users\affe5\AppData\Local\kotlin\daemon --daemon-autoshutdownIdleSeconds=7200 --daemon-compilerClasspath C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-compiler-embeddable\1.3.11\a8db6c14f8b8ed74aa11b8379f961587b639c571\kotlin-compiler-embeddable-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.3.11\aae7b33412715e9ed441934c4ffaad1bb80e9d36\kotlin-reflect-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.3.11\4cbc5922a54376018307a731162ccaf3ef851a39\kotlin-stdlib-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-script-runtime\1.3.11\1ef3a816aeacb9cd051b3ed37e2abf88910f1503\kotlin-script-runtime-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.3.11\d8b8e746e279f1c4f5e08bc14a96b82e6bb1de02\kotlin-stdlib-common-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar;C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\lib\tools.jar
+java_class_path (initial): C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-compiler-embeddable\1.3.11\a8db6c14f8b8ed74aa11b8379f961587b639c571\kotlin-compiler-embeddable-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.3.11\aae7b33412715e9ed441934c4ffaad1bb80e9d36\kotlin-reflect-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.3.11\4cbc5922a54376018307a731162ccaf3ef851a39\kotlin-stdlib-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-script-runtime\1.3.11\1ef3a816aeacb9cd051b3ed37e2abf88910f1503\kotlin-script-runtime-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.3.11\d8b8e746e279f1c4f5e08bc14a96b82e6bb1de02\kotlin-stdlib-common-1.3.11.jar;C:\Users\affe5\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar;C:\Users\affe5\AppData\Local\JetBrains\Toolbox\apps\AndroidStudio\ch-1\192.5916306\jre\lib\tools.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_221
+PATH=C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;D:\Program Files\AdoptOpenJDK\jdk-11.0.4.11-openj9\bin;D:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;D:\Program Files\nodejs\;D:\Program Files (x86)\Yarn\bin\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\OPT\apache-maven-3.6.2\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;D:\Program Files\Git\cmd;C:\Program Files\Git\cmd;C:\Users\affe5\AppData\Local\Microsoft\WindowsApps;C:\Users\affe5\AppData\Roaming\npm;C:\Users\affe5\AppData\Local\Yarn\bin;D:\Users\affe5\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\affe5\.dotnet\tools
+USERNAME=affe5
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 11, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 18362 (10.0.18362.329)
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 142 stepping 11, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+Memory: 4k page, physical 8230708k(528072k free), swap 8230708k(5324k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.212-b04) for windows-amd64 JRE (1.8.0_212-release-1586-b04), built by "builder" with MS VC++ 10.0 (VS2010)
+
+time: Thu Oct 17 10:21:31 2019
+timezone: Mitteleuropäische Sommerzeit
+elapsed time: 0 seconds (0d 0h 0m 0s)
+
