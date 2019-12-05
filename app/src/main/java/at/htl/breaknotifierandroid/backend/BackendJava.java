@@ -1,7 +1,7 @@
 package at.htl.breaknotifierandroid.backend;
 
 import android.os.StrictMode;
-import at.htl.breaknotifierandroid.model.Lesson;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -10,22 +10,30 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.json.simple.JSONArray;
-import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+
+import at.htl.breaknotifierandroid.model.Lesson;
 
 
 @XmlRootElement
@@ -41,16 +49,9 @@ public class BackendJava {
     }
 
     public JSONObject getSchools(String input) {
-        /*if (Looper.myLooper() == null){
-            Looper.prepare();
-        }
-        Looper.loop();
-*/
         HttpClient client = new DefaultHttpClient();
-               // = HttpClientBuilder.create().build();
 
         HttpResponse response;
-        //this.target = this.client.target("https://mobile.webuntis.com/ms/schoolquery2");
         JSONObject values = new JSONObject();
         JSONObject object = new JSONObject();
         JSONArray temp = new JSONArray();
@@ -84,17 +85,6 @@ public class BackendJava {
         }catch (Exception e){
             System.err.println(e);
         }
-
-        //JsonArray values = javax.json.Json.createArrayBuilder().add(javax.json.Json.createObjectBuilder().add("search", "Htbla Leon")).build();
-
-        //JsonObject obj = javax.json.Json.createObjectBuilder().add("id", "wu_schulsuche-1542658388792")
-        // .add("jsonrpc","2.0").add("method","searchSchool").add("params", values).build();
-
-        //Response response = this.target.request(MediaType.APPLICATION_JSON).post(Entity.json(object));
-
-
-        //JSONObject resultList = response.readEntity(JSONObject.class);
-        //return resultList;
 
         return jsonArray;
     }
