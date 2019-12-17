@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9115b3a-0c5f-49c8-8261-1205df7d5397" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../BreakNotifierLite/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BreakNotifierLite/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BreakNotifierLite/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BreakNotifierLite/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BreakNotifierLite/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BreakNotifierLite/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BreakNotifierLite/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BreakNotifierLite/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../BreakNotifierLite/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BreakNotifierLite/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BreakNotifierLite/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +64,8 @@
       <workItem from="1575530143194" duration="931000" />
       <workItem from="1575531139374" duration="666000" />
       <workItem from="1575532734544" duration="7000" />
-      <workItem from="1575534383237" duration="1515000" />
+      <workItem from="1575534383237" duration="1810000" />
+      <workItem from="1576072328322" duration="37000" />
     </task>
     <servers />
   </component>
@@ -79,9 +73,9 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="429" y="288" key="com.intellij.ide.util.TipDialog" timestamp="1575532735086">
+    <state x="429" y="288" key="com.intellij.ide.util.TipDialog" timestamp="1576072358592">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state x="429" y="288" key="com.intellij.ide.util.TipDialog/0.0.1440.920@0.0.1440.920" timestamp="1575532735086" />
+    <state x="429" y="288" key="com.intellij.ide.util.TipDialog/0.0.1440.920@0.0.1440.920" timestamp="1576072358592" />
   </component>
 </project>
