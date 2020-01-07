@@ -29,11 +29,16 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun login(username: String, password: String): Boolean {
         // handle login
-        val result = dataSource.login(username, password)
+        dataSource.init(username, password)
 
-        if (result is Result.Success) {
+        //val result = dataSource.login()
+        val thread = dataSource
+        thread.start()
+        thread.join()
+
+        /*if (result is Result.Success) {
             setLoggedInUser(result.data)
-        }
+        }*/
 
         return false
     }

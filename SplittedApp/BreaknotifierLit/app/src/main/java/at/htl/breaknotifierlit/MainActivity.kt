@@ -15,12 +15,9 @@ class MainActivity : AppCompatActivity() {
         val deviceID = Secure.getString(contentResolver,
             Secure.ANDROID_ID)
         println(deviceID)
-        /*
-        Start School search activity
-         */
-
-        //Check if logged in, otherwise start Login activity
         if(true){
+            //val schoolSelect = Intent(this, schoolSearch::class.java)
+            //startActivity(schoolSelect);
             val login = Intent(this, webuntis_login::class.java)
             startActivity(login)
         }
