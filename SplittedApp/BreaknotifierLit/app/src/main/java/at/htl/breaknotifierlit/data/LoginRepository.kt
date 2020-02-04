@@ -35,12 +35,16 @@ class LoginRepository(val dataSource: LoginDataSource) {
         val thread = dataSource
         thread.start()
         thread.join()
-
+        if(thread.check()){
+            thread.getUser()?.let { setLoggedInUser(it) }
+        }
+        return false;
+        //return thread.check()
         /*if (result is Result.Success) {
             setLoggedInUser(result.data)
         }*/
 
-        return false
+        //return false
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
