@@ -14,14 +14,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import at.htl.breaknotifierlit.MainActivity
 
 import at.htl.breaknotifierlit.R
+import at.htl.breaknotifierlit.data.CheckIfUserAlreadyLoggedIn
 
 class webuntis_login : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val checkIfUserAlreadyLoggedIn = CheckIfUserAlreadyLoggedIn(MainActivity.token)
+        val thread = Thread(checkIfUserAlreadyLoggedIn)
+        thread.start()
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_webuntis_login)
@@ -30,7 +35,10 @@ class webuntis_login : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
-
+        thread.join()
+        if(checkIfUserAlreadyLoggedIn.res){
+            finish()
+        }
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
@@ -57,11 +65,10 @@ class webuntis_login : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
+                setResult(Activity.RESULT_OK)
+                //Complete and destroy login activity once successful
+                finish()
             }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
         })
 
         username.afterTextChanged {

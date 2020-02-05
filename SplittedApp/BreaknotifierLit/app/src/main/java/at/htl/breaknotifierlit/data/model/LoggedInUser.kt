@@ -5,5 +5,6 @@ package at.htl.breaknotifierlit.data.model
  */
 data class LoggedInUser(
     val userId: String,
-    val displayName: String
+    val displayName: String,
+    val isLoggedIn: Boolean = false
 )

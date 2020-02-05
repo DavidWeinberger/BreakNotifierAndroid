@@ -32,7 +32,6 @@ public class Login {
             try {
                 Response response = target.request(MediaType.APPLICATION_JSON)
                         .post(Entity.form(formData));
-                System.out.print("");
                 String responseString = response.readEntity(String.class);
 
 
@@ -55,8 +54,6 @@ public class Login {
                     Map<String, NewCookie> map = response.getCookies();
                     System.out.println("Erfolgreich");
                     return map.get("JSESSIONID"); //Speichert den Cookie vom Erfolgreichen Login
-                    //loggedIn = true;
-
                 }
             }catch (Exception e){
                 System.out.println("Falsches Passwort");
@@ -64,6 +61,10 @@ public class Login {
 
         }catch (Exception e){
             System.err.println(e);
+        } finally {
+            if(client != null) {
+                client.close();
+            }
         }
         return null;
     }

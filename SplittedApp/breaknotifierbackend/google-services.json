@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "559761650841",
+    "firebase_url": "https://breaknotifierlit.firebaseio.com",
+    "project_id": "breaknotifierlit",
+    "storage_bucket": "breaknotifierlit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:559761650841:android:a84d22b161c35789d4f408",
+        "android_client_info": {
+          "package_name": "at.htl.breaknotifierlit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "559761650841-n08ujld1222fljsaqgg2524mcqoe19c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.htl.breaknotifierlit",
+            "certificate_hash": "0f8bddef0916f7d3e5d5c8ee1e0e6dbba524d9e0"
+          }
+        },
+        {
+          "client_id": "559761650841-e44k8hjefvaio0amo9p1g1ckq24m5g6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnS9ThL_ZT-ZEZgN9JdC-hVJieiJiY0IU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "559761650841-e44k8hjefvaio0amo9p1g1ckq24m5g6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

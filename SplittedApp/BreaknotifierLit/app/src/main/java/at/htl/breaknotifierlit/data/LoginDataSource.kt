@@ -1,12 +1,13 @@
 package at.htl.breaknotifierlit.data
 
+import at.htl.breaknotifierlit.MainActivity
 import at.htl.breaknotifierlit.data.model.LoggedInUser
 import java.io.IOException
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource : Thread() {
+class LoginDataSource : Runnable {
 
     private var uname = ""
     private var pword = ""
@@ -31,12 +32,13 @@ class LoginDataSource : Thread() {
         login()
     }
 
-    private fun login(): Result<LoggedInUser> {
+    fun login(): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
             val cookie = Login.LoginToWebUntis(uname,pword)
-            RegisterInServer.register(cookie,"TempID");
-            if(cookie == null) {
+            if(cookie != null){
+                RegisterInServer.register(cookie,MainActivity.token);
+            }else {
                 return Result.Error(IOException("Error logging in"));
             }
             val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "username")

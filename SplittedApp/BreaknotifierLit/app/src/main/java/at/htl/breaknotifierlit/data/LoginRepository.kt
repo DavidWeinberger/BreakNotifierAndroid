@@ -1,6 +1,7 @@
 package at.htl.breaknotifierlit.data
 
 import at.htl.breaknotifierlit.data.model.LoggedInUser
+import kotlin.concurrent.thread
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -32,19 +33,14 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.init(username, password)
 
         //val result = dataSource.login()
-        val thread = dataSource
+        val thread =  Thread(dataSource)
         thread.start()
         thread.join()
-        if(thread.check()){
-            thread.getUser()?.let { setLoggedInUser(it) }
+        if(dataSource.check()){
+            dataSource.getUser()?.let { setLoggedInUser(it) }
+            return true
         }
-        return false;
-        //return thread.check()
-        /*if (result is Result.Success) {
-            setLoggedInUser(result.data)
-        }*/
-
-        //return false
+        return false
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
