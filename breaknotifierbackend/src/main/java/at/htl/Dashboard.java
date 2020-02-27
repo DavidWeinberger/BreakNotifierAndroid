@@ -27,7 +27,6 @@ public class Dashboard {
                 SendPushNotification.pushFCMNotification(client.getId(),"Testing", "Testing Messaging Service");
             } catch (Exception e) {
                 e.printStackTrace();
-                return;
             }
         });
         return Response.ok().build();

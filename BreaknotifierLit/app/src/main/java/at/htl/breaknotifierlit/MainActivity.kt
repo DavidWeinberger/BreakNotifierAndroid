@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //Server IP
-        MainActivity.IP = "http://134.255.233.103:13131/"
+        MainActivity.IP = "http://134.255.233.103:80/"
+        //MainActivity.IP = "http://172.17.216.54:13131/"
+
 
 
         FirebaseInstanceId.getInstance().instanceId

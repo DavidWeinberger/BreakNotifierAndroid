@@ -1,74 +1,140 @@
 package at.htl.Client;
 
 
+import at.htl.Data.PasswordEncrypt;
 import at.htl.Data.Subjects;
 
+import javax.enterprise.inject.New;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import javax.ws.rs.client.Client;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class WebUntisConnection implements Runnable {
     private final Long DELAY_FOR_RELOAD_OF_SUBJECTS = 900000l;
-    private NewCookie cookie;
     private String id;
+    private String uname;
+    private String pw;
+    private NewCookie cookie;
     List<Subjects> subjectsList = new LinkedList<>();
 
-    public WebUntisConnection(String _id, NewCookie _cookie) {
+    public WebUntisConnection(String _id, String _uname, String _pw) {
         id = _id;
-        cookie = _cookie;
+        uname = _uname;
+        pw = _pw;
+    }
+
+    private NewCookie login() {
+        Client client = ClientBuilder.newClient();
+        WebTarget target;
+        String serverUrl = "https://mese.webuntis.com/WebUntis/j_spring_security_check";
+        try {
+            //HttpPost post = new HttpPost("https://"+serverUrl+"/WebUntis/j_spring_security_check");
+            target = client.target(serverUrl);
+            MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
+            formData.add("school", "htbla linz leonding");
+            formData.add("j_username", PasswordEncrypt.decrypt(uname, id));
+            formData.add("j_password", PasswordEncrypt.decrypt(pw,id));
+            formData.add("token", "");
+
+
+            try {
+                Response response = target.request(MediaType.APPLICATION_JSON)
+                        .post(Entity.form(formData));
+                String responseString = response.readEntity(String.class);
+
+
+                if (response == null || response.getStatus() == 302) {
+                    System.out.println("Failed");
+                } else if (responseString.contains("Your Browser is not supported. Please use IE10 or later!")) {
+                    System.out.println("Failed");
+                } else if (responseString.contains("NO_MANDANT")) {
+                    System.out.println("Failed");
+                } else if (response.getStatus() == 200 && responseString.contains("SUCCES")) {
+                    Map<String, NewCookie> map = response.getCookies();
+                    System.out.println("Erfolgreich");
+                    return map.get("JSESSIONID"); //Speichert den Cookie vom Erfolgreichen Login
+                }
+            } catch (Exception e) {
+                System.out.println("Falsches Passwort");
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            if (client != null) {
+                client.close();
+            }
+        }
+        return null;
     }
 
     @Override
     public void run() {
 
+        cookie = login();
 
         //To-Do
         long stopwatch = System.currentTimeMillis() - DELAY_FOR_RELOAD_OF_SUBJECTS;
-        try {
+        while (true) {
+            try {
 
-            while (true) {
-                //System.out.println((System.currentTimeMillis() - stopwatch));
-                if (subjectsList.size() > 0) {
-                    LocalDateTime time = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-                    String formattedTime = time.format(formatter);
-                    if(Integer.parseInt(formattedTime.replace(":","")) >=
-                            Integer.parseInt(subjectsList.get(0).getEndTime().replace(":",""))){
-                        // System.out.println("Hour is over");
-                        readDailyHours();
-                        SendPushNotification.pushFCMNotification(id, "Stunde ist vorbei", subjectsList.get(0).getSubject());
-                        stopwatch = System.currentTimeMillis();
-                    } else if(Integer.parseInt(formattedTime.replace(":","")) ==
-                            Integer.parseInt(subjectsList.get(0).getStartTime().replace(":",""))){
-                        // System.out.println("Hour is over");
-                        readDailyHours();
-                        SendPushNotification.pushFCMNotification(id, "Stunden Beginn", subjectsList.get(0).toString());
-                        stopwatch = System.currentTimeMillis();
-                    }
-                }
                 if ((System.currentTimeMillis() - stopwatch) >= DELAY_FOR_RELOAD_OF_SUBJECTS) {
                     readDailyHours();
                     stopwatch = System.currentTimeMillis();
                     //return;
                 }
+                //System.out.println((System.currentTimeMillis() - stopwatch));
+                if (subjectsList.size() > 0) {
+                    noticeNotification();
+                }
                 Thread.sleep(10000);
+            } catch (Exception e) {
+                cookie = login();
+                if(cookie == null){
+                    break;
+                }
             }
-        } catch (Exception e) {
-            System.err.println(e);
         }
 
     }
 
+
+    private void noticeNotification() {
+        try {
+            LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            String formattedTime = time.format(formatter);
+            if (Integer.parseInt(formattedTime.replace(":", "")) ==
+                    Integer.parseInt(subjectsList.get(0).getEndTime().replace(":", ""))) {
+                System.out.println("Hour is over");
+                SendPushNotification.pushFCMNotification(id, "Stunde ist vorbei", subjectsList.get(0).getSubject());
+                Thread.sleep(65000);
+                readDailyHours();
+            } else if (Integer.parseInt(formattedTime.replace(":", "")) ==
+                    Integer.parseInt(subjectsList.get(0).getStartTime().replace(":", ""))) {
+                System.out.println("Hour starts");
+
+                SendPushNotification.pushFCMNotification(id, "Stunden Beginn", subjectsList.get(0).toString());
+
+
+                Thread.sleep(65000);
+                readDailyHours();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void readDailyHours() {
         Client client = ClientBuilder.newClient();
@@ -82,7 +148,7 @@ public class WebUntisConnection implements Runnable {
         object = object.getJsonObject("user");
         int personId = object.getInt("personId");
         int roleId = object.getInt("roleId");
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.now(ZoneId.of("CET"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String formattedDate = date.format(formatter);
         String url = "https://mese.webuntis.com/WebUntis/api/daytimetable/dayLesson?date=" + formattedDate
@@ -97,6 +163,7 @@ public class WebUntisConnection implements Runnable {
 
 
     public void getDailyHours(JsonArray jsonArray) {
+        this.subjectsList = new LinkedList<>();
         for (int x = 0; x < jsonArray.size(); x++) {
             JsonObject jsonObject = jsonArray.getJsonObject(x);
             String subject = jsonObject.getString("subject");
@@ -114,14 +181,14 @@ public class WebUntisConnection implements Runnable {
             String room = jsonObject.getString("room");
 
 
-            String backColor = jsonObject.getString("backColor");
-            LocalDateTime time = LocalDateTime.now();
+            //String backColor = jsonObject.getString("backColor");
+            LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             String formattedTime = time.format(formatter);
             //this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
-            if(Integer.parseInt(formattedTime.replace(":","")) <
-                    Integer.parseInt(endTime.replace(":",""))){
-                this.subjectsList.add(new Subjects(subject,room,startTime,endTime,teacher));
+            if (Integer.parseInt(formattedTime.replace(":", "")) <
+                    Integer.parseInt(endTime.replace(":", ""))) {
+                this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
             }
         }
     }

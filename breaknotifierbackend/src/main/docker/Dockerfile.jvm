@@ -11,7 +11,7 @@
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 13131:13131 quarkus/breaknotifierbackend-jvm
+# docker run -i --rm -p 80:13131 quarkus/breaknotifierbackend-jvm
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1

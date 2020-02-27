@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 
 public class RegisterInServer {
 
-    public static boolean register(NewCookie cookie, String id) {
+    public static boolean register(String uname, String pw, String id) {
         Client client = ClientBuilder.newClient();
         try {
             WebTarget target;
@@ -25,15 +25,18 @@ public class RegisterInServer {
             target = client.target(serverUrl);
             JsonObject jsonObject = new JsonObject();
             jsonObject.put("id",id);
-            jsonObject.put("cookie",cookie.getValue());
+            jsonObject.put("username",PasswordEncrypt.encrypt(uname, id));
+            jsonObject.put("password",PasswordEncrypt.encrypt(pw, id));
             Response response = target.request().post(Entity.json(jsonObject.toString()));
             if(response.getStatus() == 200){
                 return true;
             }
-            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             client.close();
         }
 
+        return false;
     }
 }

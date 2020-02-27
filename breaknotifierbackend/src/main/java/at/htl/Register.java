@@ -3,6 +3,7 @@ package at.htl;
 import at.htl.Client.Client;
 import at.htl.Client.ClientRepository;
 import at.htl.Client.WebUntisConnection;
+import at.htl.Data.PasswordEncrypt;
 import at.htl.GarbageCollector.Cleaner;
 import io.vertx.core.json.JsonObject;
 
@@ -40,18 +41,18 @@ public class Register {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(String data){
+        //System.out.println(data);
         JsonObject jsonObject = new JsonObject(data);
-        System.out.println(jsonObject);
-        NewCookie cookie = new NewCookie("JSESSIONID",jsonObject.getValue("cookie").toString());
+        //NewCookie cookie = new NewCookie("JSESSIONID",jsonObject.getValue("cookie").toString());
         String id = jsonObject.getValue("id").toString();
-        WebUntisConnection webUntisConnection = new WebUntisConnection(id,cookie);
+        String uname = jsonObject.getValue("username").toString();
+        String pw = jsonObject.getValue("password").toString();
+        WebUntisConnection webUntisConnection = new WebUntisConnection(id,uname,pw);
         Thread currentThread = new Thread(webUntisConnection);
         currentThread.start();
-        Client newClient = new Client(id, cookie, currentThread);
+        Client newClient = new Client(id, currentThread);
         ClientRepository.clients.add(newClient);
-        //System.out.println(ClientRepository.clients.size());
-        //System.out.println(currentThread.isAlive());
-        //System.out.println(data.cookie);
+
         return  Response.ok().build();
     }
 }
