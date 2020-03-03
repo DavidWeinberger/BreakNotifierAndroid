@@ -45,9 +45,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val deviceID = Secure.getString(contentResolver,
-            Secure.ANDROID_ID)
-        println(deviceID)
         if(true){
             val login = Intent(this, webuntis_login::class.java)
 
