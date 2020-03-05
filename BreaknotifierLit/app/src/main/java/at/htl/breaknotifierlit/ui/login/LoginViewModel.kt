@@ -1,5 +1,6 @@
 package at.htl.breaknotifierlit.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,11 +20,12 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.losourcegin(username, password)
+        val result = loginRepository.login(username, password)
+        Log.d("Result",result.toString())
 
         if (result) {
             _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = "Mein Name"))
+                LoginResult(success = LoggedInUserView(displayName = username))
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
