@@ -11,4 +11,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="prompt_username">Username</string>
     <string name="title_activity_test">Sign in</string>
+    <string name="channel_id">lesson_notification_channel</string>
+    <string name="channel_name">Lesson Notifications</string>
 </resources>

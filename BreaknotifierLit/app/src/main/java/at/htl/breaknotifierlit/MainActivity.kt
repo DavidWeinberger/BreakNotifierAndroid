@@ -1,5 +1,8 @@
 package at.htl.breaknotifierlit
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings.Secure
@@ -8,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.iid.FirebaseInstanceId
 import at.htl.breaknotifierlit.data.model.LoggedInUser
+import at.htl.breaknotifierlit.firebase.WebUntisFirebaseService
 import at.htl.breaknotifierlit.ui.login.webuntis_login
 import com.google.android.gms.tasks.OnCompleteListener
 
@@ -25,7 +29,9 @@ class MainActivity : AppCompatActivity() {
         //MainActivity.IP = "http://vm109.htl-leonding.ac.at/"
         MainActivity.IP = "http://192.168.0.15:13131/"
 
-
+        val channel = NotificationChannel(getString(R.string.channel_id), getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT)
+        WebUntisFirebaseService.notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        WebUntisFirebaseService.notificationManager.createNotificationChannel(channel)
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
