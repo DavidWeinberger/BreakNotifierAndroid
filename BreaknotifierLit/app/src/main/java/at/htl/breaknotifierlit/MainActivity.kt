@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
         //MainActivity.IP = "http://vm109.htl-leonding.ac.at/"
         MainActivity.IP = "http://192.168.0.15:13131/"
 
-        val channel = NotificationChannel(getString(R.string.channel_id), getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT)
-        WebUntisFirebaseService.notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        WebUntisFirebaseService.notificationManager.createNotificationChannel(channel)
+        val channel = NotificationChannel(getString(R.string.channel_id), getString(R.string.channel_name), NotificationManager.IMPORTANCE_HIGH)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->

@@ -9,9 +9,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class WebUntisFirebaseService: FirebaseMessagingService() {
-    companion object {
-        lateinit var notificationManager: NotificationManager
-    }
 
     val TAG: String = "WebUntisFirebaseService"
 
@@ -21,5 +18,8 @@ class WebUntisFirebaseService: FirebaseMessagingService() {
         Log.i(TAG, " - Message Body: " + remoteMessage.data["body"])
         super.onMessageReceived(remoteMessage)
 
+        val notification = Notification.Builder(this, getString(R.string.channel_id)).setContentTitle(remoteMessage.data["title"]).setContentText(remoteMessage.data["body"]).setSmallIcon(R.mipmap.ic_launcher).build()
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.notify(0, notification)
     }
 }
