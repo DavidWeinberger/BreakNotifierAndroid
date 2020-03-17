@@ -5,6 +5,7 @@
 ### Android ###
 # Built application files
 *.apk
+!LIT-BN.apk
 *.ap_
 *.aab
 
