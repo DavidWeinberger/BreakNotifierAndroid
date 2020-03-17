@@ -34,7 +34,7 @@ public class WebUntisConnection implements Runnable {
         pw = _pw;
     }
 
-    private NewCookie login() {
+    public NewCookie login() {
         Client client = ClientBuilder.newClient();
         WebTarget target;
         String serverUrl = "https://mese.webuntis.com/WebUntis/j_spring_security_check";
@@ -53,14 +53,7 @@ public class WebUntisConnection implements Runnable {
                         .post(Entity.form(formData));
                 String responseString = response.readEntity(String.class);
 
-
-                if (response == null || response.getStatus() == 302) {
-                    System.out.println("Failed");
-                } else if (responseString.contains("Your Browser is not supported. Please use IE10 or later!")) {
-                    System.out.println("Failed");
-                } else if (responseString.contains("NO_MANDANT")) {
-                    System.out.println("Failed");
-                } else if (response.getStatus() == 200 && responseString.contains("SUCCES")) {
+                if (response.getStatus() == 200 && responseString.contains("SUCCES")) {
                     Map<String, NewCookie> map = response.getCookies();
                     System.out.println("Erfolgreich");
                     return map.get("JSESSIONID"); //Speichert den Cookie vom Erfolgreichen Login
@@ -83,29 +76,30 @@ public class WebUntisConnection implements Runnable {
     public void run() {
 
         cookie = login();
+        if(cookie != null){
+            long stopwatch = System.currentTimeMillis() - DELAY_FOR_RELOAD_OF_SUBJECTS;
+            while (true) {
+                try {
 
-        //To-Do
-        long stopwatch = System.currentTimeMillis() - DELAY_FOR_RELOAD_OF_SUBJECTS;
-        while (true) {
-            try {
-
-                if ((System.currentTimeMillis() - stopwatch) >= DELAY_FOR_RELOAD_OF_SUBJECTS) {
-                    readDailyHours();
-                    stopwatch = System.currentTimeMillis();
-                    //return;
-                }
-                //System.out.println((System.currentTimeMillis() - stopwatch));
-                if (subjectsList.size() > 0) {
-                    noticeNotification();
-                }
-                Thread.sleep(10000);
-            } catch (Exception e) {
-                cookie = login();
-                if(cookie == null){
-                    break;
+                    if ((System.currentTimeMillis() - stopwatch) >= DELAY_FOR_RELOAD_OF_SUBJECTS) {
+                        readDailyHours();
+                        stopwatch = System.currentTimeMillis();
+                        //return;
+                    }
+                    //System.out.println((System.currentTimeMillis() - stopwatch));
+                    if (subjectsList.size() > 0) {
+                        noticeNotification();
+                    }
+                    Thread.sleep(10000);
+                } catch (Exception e) {
+                    cookie = login();
+                    if(cookie == null){
+                        break;
+                    }
                 }
             }
         }
+
 
     }
 

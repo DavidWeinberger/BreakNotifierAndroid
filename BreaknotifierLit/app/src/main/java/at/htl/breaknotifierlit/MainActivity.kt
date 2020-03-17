@@ -25,9 +25,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        //Server IP
-        //MainActivity.IP = "http://vm109.htl-leonding.ac.at/"
-        MainActivity.IP = "http://192.168.0.15:13131/"
+
+        //School Server
+        MainActivity.IP = "http://vm109.htl-leonding.ac.at/"
+        //Own Server
+        //MainActivity.IP = "http://134.255.233.103:80/"
+        //Localhost
+        //MainActivity.IP = "http://172.17.216.54:13131/"
 
         val channel = NotificationChannel(getString(R.string.channel_id), getString(R.string.channel_name), NotificationManager.IMPORTANCE_HIGH)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -43,10 +47,6 @@ class MainActivity : AppCompatActivity() {
                 // Get new Instance ID token
                 val token = task.result?.token
                 MainActivity.token = token;
-                // Log and toast
-                //val msg = getString(R.string.msg_token_fmt, token)
-                Log.d("Token", token)
-                //Toast.makeText(baseContext, Toast.LENGTH_SHORT).show()
             })
 
         super.onCreate(savedInstanceState)

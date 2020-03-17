@@ -34,6 +34,7 @@ public class SendPushNotification {
         JSONObject info = new JSONObject();
         info.put("title", title); // Notification title
         info.put("text", message); // Notification body
+        //data.put("notification", info);
         data.put("data", info);
 
         OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());

@@ -35,17 +35,15 @@ class LoginDataSource : Runnable {
     fun login(): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
-            RegisterInServer.register(uname,pword,MainActivity.token);
+            check = RegisterInServer.register(uname,pword,MainActivity.token);
 
-            /*val cookie = Login.LoginToWebUntis(uname,pword)
-            if(cookie != null){
-                RegisterInServer.register(uname,pword,MainActivity.token);
-            }else {
-                return Result.Error(IOException("Error logging in"));
-            }*/
-            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), uname)
-            check = true;
-            return Result.Success(fakeUser)
+            if(check){
+                val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), uname)
+                return Result.Success(fakeUser)
+            } else{
+                return Result.Error(IOException("Error, login failed"))
+            }
+
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))
         }
