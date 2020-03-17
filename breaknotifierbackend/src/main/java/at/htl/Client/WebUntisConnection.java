@@ -112,14 +112,14 @@ public class WebUntisConnection implements Runnable {
             if (Integer.parseInt(formattedTime.replace(":", "")) ==
                     Integer.parseInt(subjectsList.get(0).getEndTime().replace(":", ""))) {
                 System.out.println("Hour is over");
-                SendPushNotification.pushFCMNotification(id, "Stunde ist vorbei", subjectsList.get(0).getSubject());
+                SendPushNotification.pushFCMNotification(id, "Pause", subjectsList.get(0).getSubject());
                 Thread.sleep(65000);
                 readDailyHours();
             } else if (Integer.parseInt(formattedTime.replace(":", "")) ==
                     Integer.parseInt(subjectsList.get(0).getStartTime().replace(":", ""))) {
                 System.out.println("Hour starts");
 
-                SendPushNotification.pushFCMNotification(id, "Stunden Beginn", subjectsList.get(0).toString());
+                SendPushNotification.pushFCMNotification(id, "Unterricht", subjectsList.get(0).toString());
 
 
                 Thread.sleep(65000);
