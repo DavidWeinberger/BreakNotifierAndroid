@@ -33,7 +33,7 @@ public class SendPushNotification {
         data.put("to", DeviceIdKey.trim());
         JSONObject info = new JSONObject();
         info.put("title", title); // Notification title
-        info.put("text", message); // Notification body
+        info.put("body", message); // Notification body
         //data.put("notification", info);
         data.put("data", info);
 
