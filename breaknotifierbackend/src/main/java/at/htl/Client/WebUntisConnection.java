@@ -45,7 +45,7 @@ public class WebUntisConnection implements Runnable {
             MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
             formData.add("school", "htbla linz leonding");
             formData.add("j_username", PasswordEncrypt.decrypt(uname, id));
-            formData.add("j_password", PasswordEncrypt.decrypt(pw,id));
+            formData.add("j_password", PasswordEncrypt.decrypt(pw, id));
             formData.add("token", "");
 
 
@@ -78,7 +78,7 @@ public class WebUntisConnection implements Runnable {
     public void run() {
 
         cookie = login();
-        if(cookie != null){
+        if (cookie != null) {
             long stopwatch = System.currentTimeMillis() - DELAY_FOR_RELOAD_OF_SUBJECTS;
             while (true) {
                 try {
@@ -93,13 +93,15 @@ public class WebUntisConnection implements Runnable {
                     Thread.sleep(10000);
                 } catch (Exception e) {
                     Dashboard.exceptions.add(e);
-                    for(int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 5; i++) {
                         cookie = login();
-                        if(cookie == null){
+                        if (cookie == null) {
                             Dashboard.exceptions.add(new Exception(i + " Try"));
+                        } else {
+                            i = 6;
                         }
                     }
-                    if(cookie == null){
+                    if (cookie == null) {
                         break;
                     }
                 }
@@ -110,31 +112,27 @@ public class WebUntisConnection implements Runnable {
     }
 
 
-    private void noticeNotification() {
-        try {
-            LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-            String formattedTime = time.format(formatter);
-            if (Integer.parseInt(formattedTime.replace(":", "")) ==
-                    Integer.parseInt(subjectsList.get(0).getEndTime().replace(":", ""))) {
-                System.out.println("Hour is over");
-                SendPushNotification.pushFCMNotification(id, "Pause", subjectsList.get(0).getSubject());
-                Thread.sleep(65000);
-                readDailyHours();
-            } else if (Integer.parseInt(formattedTime.replace(":", "")) ==
-                    Integer.parseInt(subjectsList.get(0).getStartTime().replace(":", ""))) {
-                System.out.println("Hour starts");
+    private void noticeNotification() throws Exception {
+        LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedTime = time.format(formatter);
+        if (Integer.parseInt(formattedTime.replace(":", "")) ==
+                Integer.parseInt(subjectsList.get(0).getEndTime().replace(":", ""))) {
+            System.out.println("Hour is over");
+            SendPushNotification.pushFCMNotification(id, "Pause", subjectsList.get(0).getSubject());
+            Thread.sleep(65000);
+            readDailyHours();
+        } else if (Integer.parseInt(formattedTime.replace(":", "")) ==
+                Integer.parseInt(subjectsList.get(0).getStartTime().replace(":", ""))) {
+            System.out.println("Hour starts");
 
-                SendPushNotification.pushFCMNotification(id, "Unterricht", subjectsList.get(0).toString());
+            SendPushNotification.pushFCMNotification(id, "Unterricht", subjectsList.get(0).toString());
 
 
-                Thread.sleep(65000);
-                readDailyHours();
-            }
-        } catch (Exception e) {
-            Dashboard.exceptions.add(e);
-            e.printStackTrace();
+            Thread.sleep(65000);
+            readDailyHours();
         }
+
     }
 
     private void readDailyHours() {
