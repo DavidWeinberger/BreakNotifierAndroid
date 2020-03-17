@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/close_app_message"
         android:textAlignment="center"
