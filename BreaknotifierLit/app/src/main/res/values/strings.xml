@@ -16,4 +16,7 @@
     <string name="signin_success_message">Login erfolgreich</string>
     <string name="close_app_message">Die App kann jetzt geschlossen werden</string>
     <string name="app_icon_desc">App Icon</string>
+    <string name="hint_username">WebUntis-Nutzername</string>
+    <string name="hint_password">WebUntis-Passwort</string>
+    <string name="login_title">Login mit WebUntis</string>
 </resources>
