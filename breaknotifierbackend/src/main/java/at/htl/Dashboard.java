@@ -9,14 +9,24 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
+import java.util.List;
 
 @Path("/dashboard")
 public class Dashboard {
+    public static List<Exception> exceptions = new LinkedList<>();
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response currentConnected() {
         return Response.ok(ClientRepository.clients.size()).build();
+    }
+
+    @GET
+    @Path("/errors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response errorMessaging(){
+        return Response.ok(exceptions).build();
     }
 
     @GET

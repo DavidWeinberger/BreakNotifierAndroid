@@ -1,6 +1,7 @@
 package at.htl.Client;
 
 
+import at.htl.Dashboard;
 import at.htl.Data.PasswordEncrypt;
 import at.htl.Data.Subjects;
 
@@ -59,6 +60,7 @@ public class WebUntisConnection implements Runnable {
                     return map.get("JSESSIONID"); //Speichert den Cookie vom Erfolgreichen Login
                 }
             } catch (Exception e) {
+                Dashboard.exceptions.add(new Exception("Falsches Passwort"));
                 System.out.println("Falsches Passwort");
             }
 
@@ -84,15 +86,19 @@ public class WebUntisConnection implements Runnable {
                     if ((System.currentTimeMillis() - stopwatch) >= DELAY_FOR_RELOAD_OF_SUBJECTS) {
                         readDailyHours();
                         stopwatch = System.currentTimeMillis();
-                        //return;
                     }
-                    //System.out.println((System.currentTimeMillis() - stopwatch));
                     if (subjectsList.size() > 0) {
                         noticeNotification();
                     }
                     Thread.sleep(10000);
                 } catch (Exception e) {
-                    cookie = login();
+                    Dashboard.exceptions.add(e);
+                    for(int i = 0; i < 5; i++) {
+                        cookie = login();
+                        if(cookie == null){
+                            Dashboard.exceptions.add(new Exception(i + " Try"));
+                        }
+                    }
                     if(cookie == null){
                         break;
                     }
@@ -126,6 +132,7 @@ public class WebUntisConnection implements Runnable {
                 readDailyHours();
             }
         } catch (Exception e) {
+            Dashboard.exceptions.add(e);
             e.printStackTrace();
         }
     }
