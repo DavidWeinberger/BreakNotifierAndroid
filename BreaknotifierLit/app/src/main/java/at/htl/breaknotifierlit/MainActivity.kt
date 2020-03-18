@@ -6,13 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings.Secure
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.iid.FirebaseInstanceId
-import at.htl.breaknotifierlit.data.model.LoggedInUser
-import at.htl.breaknotifierlit.firebase.WebUntisFirebaseService
 import at.htl.breaknotifierlit.ui.login.webuntis_login
 import com.google.android.gms.tasks.OnCompleteListener
 
@@ -20,7 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        lateinit var IP: String
+        lateinit var URL: String
         var token: String? = ""
     }
 
@@ -28,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //School Server
-        MainActivity.IP = "http://vm109.htl-leonding.ac.at/"
+        MainActivity.URL = "http://vm109.htl-leonding.ac.at/"
         //Own Server
         //MainActivity.IP = "http://134.255.233.103:80/"
         //Localhost
