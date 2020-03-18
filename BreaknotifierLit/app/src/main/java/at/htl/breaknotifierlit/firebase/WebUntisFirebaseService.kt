@@ -3,6 +3,7 @@ package at.htl.breaknotifierlit.firebase
 import android.app.Notification
 import android.app.NotificationManager
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import at.htl.breaknotifierlit.R
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -18,7 +19,7 @@ class WebUntisFirebaseService: FirebaseMessagingService() {
         Log.i(TAG, " - Message Body: " + remoteMessage.data["body"])
         super.onMessageReceived(remoteMessage)
 
-        val notification = Notification.Builder(this, getString(R.string.channel_id)).setContentTitle(remoteMessage.data["title"]).setContentText(remoteMessage.data["body"]).setSmallIcon(R.mipmap.ic_launcher).build()
+        val notification = NotificationCompat.Builder(this, getString(R.string.channel_id)).setContentTitle(remoteMessage.data["title"]).setContentText(remoteMessage.data["body"]).setSmallIcon(R.mipmap.ic_launcher).build()
         val notificationManager = NotificationManagerCompat.from(this)
         notificationManager.notify(0, notification)
     }
