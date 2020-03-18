@@ -1,7 +1,6 @@
 package at.htl.breaknotifierlit.data
 
 import android.content.Context
-import android.util.Log
 import at.htl.breaknotifierlit.MainActivity
 import com.android.volley.Request
 import com.android.volley.Response

@@ -1,6 +1,7 @@
 package at.htl.breaknotifierlit.ui.login
 
 import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -22,10 +23,15 @@ import at.htl.breaknotifierlit.data.CheckIfUserAlreadyLoggedIn
 import at.htl.breaknotifierlit.data.LoginChecker
 
 class webuntis_login : AppCompatActivity() {
+    companion object{
+        lateinit var context: Context
+    }
 
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        context = this
+
         val loginChecker = LoginChecker(MainActivity.token!!, this)
         val lcThread = Thread(loginChecker)
         lcThread.start()

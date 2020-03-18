@@ -18,9 +18,12 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var URL: String
         var token: String? = ""
+        lateinit var context: Context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        context = this
 
         Log.i("MainActivity", "Starting Main Activity")
 

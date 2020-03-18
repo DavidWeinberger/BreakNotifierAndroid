@@ -7,12 +7,12 @@ import java.io.IOException
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource : Runnable {
+class LoginDataSource() : Runnable {
 
     private var uname = ""
     private var pword = ""
     private var check = false
-    private var user : LoggedInUser? = null;
+    private var user : LoggedInUser? = null
 
     fun getUser(): LoggedInUser? {
         return user;
@@ -35,7 +35,7 @@ class LoginDataSource : Runnable {
     fun login(): Result<LoggedInUser> {
         try {
             // TODO: handle loggedInUser authentication
-            check = RegisterInServer.register(uname,pword,MainActivity.token);
+            check = UserRegistration.register(uname,pword, MainActivity.token!!);
 
             if(check){
                 val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), uname)
