@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        Log.i("MainActivity", "Starting Main Activity")
 
         //School Server
         MainActivity.URL = "http://vm109.htl-leonding.ac.at/"
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         //Localhost
         //MainActivity.IP = "http://172.17.216.54:13131/"
 
+        Log.i("MainActivity", "Creating Notification Channel")
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
 
+        Log.i("MainActivity", "Creating Firebase Instance")
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -55,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if(true){
+
+            Log.i("MainActivity", "Starting Login Activity")
             val login = Intent(this, webuntis_login::class.java)
 
             startActivity(login)

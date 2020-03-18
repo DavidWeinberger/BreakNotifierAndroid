@@ -2,18 +2,13 @@ package at.htl.breaknotifierlit.data;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import at.htl.breaknotifierlit.MainActivity;
-import io.vertx.core.json.JsonObject;
 
 public class CheckIfUserAlreadyLoggedIn implements Runnable{
-
 
     public CheckIfUserAlreadyLoggedIn(String id) {
         this.id = id;
@@ -32,7 +27,7 @@ public class CheckIfUserAlreadyLoggedIn implements Runnable{
         Client client = ClientBuilder.newClient();
         try {
             WebTarget target;
-            String serverUrl = MainActivity.IP + "register/" + id;
+            String serverUrl = MainActivity.URL + "register/" + id;
             target = client.target(serverUrl);
 
             Response response = target.request(MediaType.TEXT_PLAIN).get();

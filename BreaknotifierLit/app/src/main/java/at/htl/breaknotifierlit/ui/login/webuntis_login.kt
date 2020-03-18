@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -18,15 +19,19 @@ import at.htl.breaknotifierlit.MainActivity
 
 import at.htl.breaknotifierlit.R
 import at.htl.breaknotifierlit.data.CheckIfUserAlreadyLoggedIn
+import at.htl.breaknotifierlit.data.LoginChecker
 
 class webuntis_login : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val checkIfUserAlreadyLoggedIn = CheckIfUserAlreadyLoggedIn(MainActivity.token)
-        val thread = Thread(checkIfUserAlreadyLoggedIn)
-        thread.start()
+        val loginChecker = LoginChecker(MainActivity.token!!, this)
+        val lcThread = Thread(loginChecker)
+        lcThread.start()
+//        val checkIfUserAlreadyLoggedIn = CheckIfUserAlreadyLoggedIn(MainActivity.token)
+//        val thread = Thread(checkIfUserAlreadyLoggedIn)
+//        thread.start()
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_webuntis_login)
@@ -35,8 +40,9 @@ class webuntis_login : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
-        thread.join()
-        if(checkIfUserAlreadyLoggedIn.res){
+        //lcThread.join()
+        lcThread.join()
+        if(loginChecker.res){
             finish()
         }
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
