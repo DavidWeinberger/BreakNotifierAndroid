@@ -16,7 +16,7 @@ class UserRegistration {
     companion object {
         fun register(uname: String, pw: String, id: String): Boolean {
 
-            val ret = false
+            var ret: Boolean
 
             Log.i("UserRegistration", "Entered register")
 
@@ -40,8 +40,10 @@ class UserRegistration {
                 // Running the request in a Thread or Coroutine does not help, using a different Context (MainActivity for instance) has also proven futile.
                 // If it weren't for this crap, it would run on SDK 23 just fine. Everything else seems to work.
                 future.get()
+                ret = true
                 Log.i("UserRegistration", "Got Response")
             } catch(e: Exception) {
+                ret = false
                 Log.i("UserRegistration", "Got Error")
             }
 
