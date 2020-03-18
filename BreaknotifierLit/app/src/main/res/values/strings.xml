@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LIT - Break Notifier</string>
+    <string name="app_name">LIT - Break Notifier [SDK 23 Compat]</string>
     <string name="title_activity_webuntis_login">Einloggen</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
