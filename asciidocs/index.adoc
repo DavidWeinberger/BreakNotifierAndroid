@@ -1,24 +1,43 @@
-= My Project
-firstname lastname
-1.0.1, yyyy-mm-dd
+= BreakNotifier
+David Weinberger
+Arno Blümel
+1.0.1, 2020-04-16
 :sourcedir: ../src/main/java
 :icons: font
 :toc: left
 
 
-== Pflichtenheft "Was mache ich"
+== Pflichtenheft
 
 
 === Ausgangssituation
 
-Die HTL Leonding ist eine HTL im oö. Zentralraum mit ca. 1000 Schülern und den Fachabteilungen Medientechnik, Informatik, ....
+Die Htl-Leonding hat ca 1000 Schüler und ein sehr großes Schulgebäude. Der Beginn und das Ende jeder einheit wird durch
+eine Glocke verwircklicht. Dieses System gibt Schülern und Lehrern die Information, dass eine Pause begonnen hat oder
+schon beendet ist.
 
 === Istzustand
-----
-Beschreibung der speziellen Situation zB in der Abteilung
-----
+
+Derzeit ist es nicht gewährleistet, dass jede Klasse diese die Klingel hört. Dies kann zu zwei Problemen führen.
+Erstens, der Lehrer könnte die Pause übersehen durcharbeiten, da dieser nicht auf die Pause aufmerksam gemacht wurde.
+Dadurch werden Schüler ungeduldig, denn diese wollen zum Wc oder zum Buffet.
+Ein zweites großes Problem, ist der Unterrichtsbeginn. Ein Lehrer hat gerade ein Freistunde gehabt, hält sich deswegen
+beispielsweise in einem Raum auf, wo man keine Klingel hört. Deswegen kommt diesen 10-20 min zu spät.
+
 === Problemstellung
+
+Es soll eine kostengünstige Methode entwickelt werden, welche zuverlässig dafür sorgt, dass Lehrer und Schüler auf das
+Ende bzw. den Anfang einer Stunde aufmerksam macht. Damit die bereits erwähnten Probleme nicht mehr auftretten.
+
 === Aufgabenstellung
+
+Da jeder Schüler/Lehrer ein Smartphone besitzt, wird ein App entwickelt. Mittels Webuntis-Account soll man sich eingeloggen
+können. Zum Ender jeder einheit bekommt man eine Benachrichtigung. Diese weißt auf das Ende des Unterrichts hin. Am Beginn
+des Unterricht erhält man eine Benachrichtigung, diese Enthält folgende Informationen:
+* Raum
+* Fach
+Somit wissen Schüler/Lehrer in welchem Raum Sie sich befinden werden und welches Material diese mitbringen müssen.
+
 ==== Funktionale Anforderungen
 
 [plantuml,wireframe,png]

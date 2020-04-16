@@ -15,8 +15,7 @@
     Dazu kommt noch eine Benachrichtigung für bevorstehende Tests oder Schularbeiten, damit sich Schüler und
     Lehrer rechtzeitig darauf vorbereiten können.
     
-[Detaillierte Readme][1]
-[1]: https://davidweinberger.github.io/BreakNotifierAndroid/
+Detaillierte Readme: https://davidweinberger.github.io/BreakNotifierAndroid/
 
 
 ##### Disclaimer: The following sections will be in English for reasons.
