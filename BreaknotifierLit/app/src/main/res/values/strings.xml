@@ -19,4 +19,7 @@
     <string name="hint_username">WebUntis-Nutzername</string>
     <string name="hint_password">WebUntis-Passwort</string>
     <string name="login_title">Login mit WebUntis</string>
+<!--Server IP-->
+    <string name="server_ip">vm109.htl-leonding.ac.at</string>
+<!---->
 </resources>
