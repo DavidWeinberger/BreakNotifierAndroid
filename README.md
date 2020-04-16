@@ -6,14 +6,14 @@
 # Überblick
     Diese App ist für die HTL-Leonding entwickelt, daher benötigt man einen WebUntis-Zugriff der Htl Leonding. 
     Die App benachrichtigt sobald eine Pause beginnt oder endet. 
-    Weitere Informationen werden im Datailliertem Readme zur Verfügung gestellt.
+    Weitere Informationen werden im datailliertem Readme zur Verfügung gestellt.
     Dazu einfach auf den nachfolgenden Link drücken. 
 Detaillierte Readme: https://davidweinberger.github.io/BreakNotifierAndroid/
     
     Die folgende Englische Installationsanleitung erläutert das einfach Installieren der App, 
     welche dann den standard Server verwendet. Jedoch nur das Installieren der Smartphone-App, 
     wenn Sie mehr erfahren möchten, wie Sie zum Beispiel selbst einen solchen Server hosten können. 
-    Einfach der Anleitung im Detailliertem Readme folgen. 
+    Einfach der Anleitung im detailliertem Readme folgen. 
 
 ##### Disclaimer: The following sections will be in English.
 
