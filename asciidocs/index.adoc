@@ -164,5 +164,7 @@ image:system.jpg[width=75%]
 @enduml
 ----
 
+== Weitere Dokumente
 
+https://github.com/DavidWeinberger/BreakNotifierAndroid/blob/master/Dokumentation/Rest-Zugriff%20auf%20WebUntis.pdf[Dokumentation des Zugriffes auf Webuntis]
 
