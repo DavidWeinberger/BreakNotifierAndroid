@@ -323,3 +323,10 @@ Thumbs.db
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/java,android,intellij,firebase,androidstudio,visualstudiocode
+
+build-docs-html/
+build-docs-pdf/
+build-docs-revealjs/
+target/
+asciidocs/revealjs/
+revealjs.zip
