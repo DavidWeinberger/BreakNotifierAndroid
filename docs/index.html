@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<meta name="author" content="firstname lastname">
+<meta name="author" content="David Weinberger">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>My Project</title>
+<title>BreakNotifier</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -449,16 +449,15 @@ pre.rouge .hll * {
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>My Project</h1>
+<h1>BreakNotifier</h1>
 <div class="details">
-<span id="author" class="author">firstname lastname</span><br>
-<span id="revnumber">version 1.0,</span>
-<span id="revdate">yyyy-mm-dd</span>
+<span id="author" class="author">David Weinberger</span><br>
+<span id="revdate">Arno Blümel</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_pflichtenheft_was_mache_ich">1. Pflichtenheft "Was mache ich"</a>
+<li><a href="#_pflichtenheft">1. Pflichtenheft</a>
 <ul class="sectlevel2">
 <li><a href="#_ausgangssituation">1.1. Ausgangssituation</a></li>
 <li><a href="#_istzustand">1.2. Istzustand</a></li>
@@ -484,29 +483,54 @@ pre.rouge .hll * {
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>1.0.1, 2020-04-16
+:sourcedir: ../src/main/java
+:icons: font
+:toc: left</p>
+</div>
+</div>
+</div>
 <div class="sect1">
-<h2 id="_pflichtenheft_was_mache_ich"><a class="anchor" href="#_pflichtenheft_was_mache_ich"></a>1. Pflichtenheft "Was mache ich"</h2>
+<h2 id="_pflichtenheft"><a class="anchor" href="#_pflichtenheft"></a>1. Pflichtenheft</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_ausgangssituation"><a class="anchor" href="#_ausgangssituation"></a>1.1. Ausgangssituation</h3>
 <div class="paragraph">
-<p>Die HTL Leonding ist eine HTL im oö. Zentralraum mit ca. 1000 Schülern und den Fachabteilungen Medientechnik, Informatik, &#8230;&#8203;.</p>
+<p>Die Htl-Leonding hat ca 1000 Schüler und ein sehr großes Schulgebäude. Der Beginn und das Ende jeder einheit wird durch
+eine Glocke verwircklicht. Dieses System gibt Schülern und Lehrern die Information, dass eine Pause begonnen hat oder
+schon beendet ist.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_istzustand"><a class="anchor" href="#_istzustand"></a>1.2. Istzustand</h3>
-<div class="listingblock">
-<div class="content">
-<pre>Beschreibung der speziellen Situation zB in der Abteilung</pre>
-</div>
+<div class="paragraph">
+<p>Derzeit ist es nicht gewährleistet, dass jede Klasse diese die Klingel hört. Dies kann zu zwei Problemen führen.
+Erstens, der Lehrer könnte die Pause übersehen durcharbeiten, da dieser nicht auf die Pause aufmerksam gemacht wurde.
+Dadurch werden Schüler ungeduldig, denn diese wollen zum Wc oder zum Buffet.
+Ein zweites großes Problem, ist der Unterrichtsbeginn. Ein Lehrer hat gerade ein Freistunde gehabt, hält sich deswegen
+beispielsweise in einem Raum auf, wo man keine Klingel hört. Deswegen kommt diesen 10-20 min zu spät.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_problemstellung"><a class="anchor" href="#_problemstellung"></a>1.3. Problemstellung</h3>
-
+<div class="paragraph">
+<p>Es soll eine kostengünstige Methode entwickelt werden, welche zuverlässig dafür sorgt, dass Lehrer und Schüler auf das
+Ende bzw. den Anfang einer Stunde aufmerksam macht. Damit die bereits erwähnten Probleme nicht mehr auftretten.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_aufgabenstellung"><a class="anchor" href="#_aufgabenstellung"></a>1.4. Aufgabenstellung</h3>
+<div class="paragraph">
+<p>Da jeder Schüler/Lehrer ein Smartphone besitzt, wird ein App entwickelt. Mittels Webuntis-Account soll man sich eingeloggen
+können. Zum Ender jeder einheit bekommt man eine Benachrichtigung. Diese weißt auf das Ende des Unterrichts hin. Am Beginn
+des Unterricht erhält man eine Benachrichtigung, diese Enthält folgende Informationen:
+* Raum
+* Fach
+Somit wissen Schüler/Lehrer in welchem Raum Sie sich befinden werden und welches Material diese mitbringen müssen.</p>
+</div>
 <div class="sect3">
 <h4 id="_funktionale_anforderungen"><a class="anchor" href="#_funktionale_anforderungen"></a>1.4.1. Funktionale Anforderungen</h4>
 <div class="imageblock">
@@ -571,8 +595,7 @@ pre.rouge .hll * {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0<br>
-Last updated 2020-03-16 13:26:19 UTC
+Last updated 2020-04-16 15:18:07 UTC
 </div>
 </div>
 </body>
