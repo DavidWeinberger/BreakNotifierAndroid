@@ -4,10 +4,7 @@
 
 ### Inhalt
 * Überblick
-* Projektstrukturplan
-* Anwendungsfalldiagramm  
 
-* Systemarchiktektur  
 
 # Überblick
     In diesem Projekt wird eine App verwirklicht, welche dazu dient, die Pause nicht mehr zu überhören.
@@ -18,8 +15,8 @@
     Dazu kommt noch eine Benachrichtigung für bevorstehende Tests oder Schularbeiten, damit sich Schüler und
     Lehrer rechtzeitig darauf vorbereiten können.
     
-    Weitere Informationen finden Sie unter folgendem Link:
-        https://davidweinberger.github.io/BreakNotifierAndroid/
+[Detaillierte Readme][1]
+[1]: https://davidweinberger.github.io/BreakNotifierAndroid/
 
 
 ##### Disclaimer: The following sections will be in English for reasons.
