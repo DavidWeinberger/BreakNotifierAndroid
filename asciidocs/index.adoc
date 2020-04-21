@@ -17,88 +17,60 @@ ifndef::backend[:backend: html5]
 
 === Ausgangssituation
 
-Die Htl-Leonding hat ca 1000 Schüler und ein sehr großes Schulgebäude. Der Beginn und das Ende jeder einheit wird durch
-eine Glocke verwircklicht. Dieses System gibt Schülern und Lehrern die Information, dass eine Pause begonnen hat oder
-schon beendet ist.
+Die HTL-Leonding hat viele Klassen, die auf ein großes Schulgebäude verteilt sind. Beginn und Ende jeder Unterrichtseinheit werden durch das Läuten der Pausenglocke signalisiert.
 
-=== Istzustand
+=== Problem
 
-Derzeit ist es nicht gewährleistet, dass jede Klasse diese die Klingel hört. Dies kann zu zwei Problemen führen.
-Erstens, der Lehrer könnte die Pause übersehen durcharbeiten, da dieser nicht auf die Pause aufmerksam gemacht wurde.
-Dadurch werden Schüler ungeduldig, denn diese wollen zum Wc oder zum Buffet.
-Ein zweites großes Problem, ist der Unterrichtsbeginn. Ein Lehrer hat gerade ein Freistunde gehabt, hält sich deswegen
-beispielsweise in einem Raum auf, wo man keine Klingel hört. Deswegen kommt diesen 10-20 min zu spät.
+Die Klingel ist nicht in jeder Klasse immer zu hören. Besonders in den abgelegeneren Klassen an den äußeren Enden des Gebäudes, für die unter Umständen nur eine Klingel in Reichweite ist, kann das dazu führen, dass die Pause bis in die nächste Einheit durchgearbeitet wird, und Schüler sowie Lehrer zu spät zu ihrer nächsten Stunde erscheinen, wenn diese eine Klingel ausfällt.
 
-=== Problemstellung
+=== Ziel
 
-Es soll eine kostengünstige Methode entwickelt werden, welche zuverlässig dafür sorgt, dass Lehrer und Schüler auf das
-Ende bzw. den Anfang einer Stunde aufmerksam macht. Damit die bereits erwähnten Probleme nicht mehr auftretten.
+Es soll eine App entwickelt werden, die den Nutzer benachrichtigt, wenn eine Stunde beginnt bzw. endet. Die Benachrichtigung soll nur erfolgen, wenn es für den betroffenen Nutzer auch tatsächlich eine Unterrichtseinheit ist/war. Die dazu benötigten Daten sind aus dem WebUntis der HTL-Leonding zu beziehen.
 
-=== Aufgabenstellung
-
-Da jeder Schüler/Lehrer ein Smartphone besitzt, wird ein App entwickelt. Mittels Webuntis-Account soll man sich eingeloggen
-können. Zum Ender jeder einheit bekommt man eine Benachrichtigung. Diese weißt auf das Ende des Unterrichts hin. Am Beginn
-des Unterricht erhält man eine Benachrichtigung, diese Enthält folgende Informationen:
-* Raum
-* Fach
-Somit wissen Schüler/Lehrer in welchem Raum Sie sich befinden werden und welches Material diese mitbringen müssen.
-
-== Information vor der Installation
-
-Zur Verwendung dieser App benötigt man einen WebUntis-Zugang der Htl Leonding. Zur einfachen Anwendung, empfehlen wir
-den Server nicht selbst aufzusetzen, sondern den Bereits vorhanden Server zu verwenden. Wenn man den Server selbst aufsetzt,
-muss man die IP-Adresse in die Config der App eintragen und diese dann neu builden.
 
 == Installation
 
+=== Informationen zur Verwendung
+
+* Das Funktionieren der App setzt einen Zugang zum WebUntis-System der HTL-Leonding voraus.
+
+* Die App ist standarmäßig auf den Server unter der Addresse vm109.htl-leonding.ac.at programmiert. Für die Verwendung eines eigenen Servers muss das Projekt im Android-Studio geöffnet und die String-Ressource entsprechend neu gesetzt werden.
+
 === Server
-* Folgende Software wird benötigt
+==== Software-Vorraussetzungen:
 
 . JAVA
 
 . Maven
 
 . Docker
-* Github Repository klonen
 
-https://github.com/DavidWeinberger/BreakNotifierAndroid.git
+==== Installation
 
-* Wechsel in den geklonten Ordner, dann in das "breakNotifierBackend" Verzeichnis
+https://github.com/DavidWeinberger/BreakNotifierAndroid.git[Git-Repo]
 
-* Dort Folgende Befehle ausführen:
+Um den Server zu installieren und zu starten, müssen im Verzeichnis "BreakNotifierAndroid" des gekloneten Repos folgende Befehle ausgeführt werden:
 
-. mvn package
+`mvn package`
 
-. docker build -f src/main/docker/Dockerfile.jvm -t quarkus/breaknotifierbackend-jvm .
+`docker build -f src/main/docker/Dockerfile.jvm -t quarkus/breaknotifierbackend-jvm .`
 
-. docker run -i -d --rm -p 80:13131 quarkus/breaknotifierbackend-jvm
+`docker run -i -d --rm -p 80:13131 quarkus/breaknotifierbackend-jvm`
 
-=== App
-==== Definition der Server-IP
+===== Setzen der neuen URL in der Android-App:
 
-* Öffnen Sie Android-Studio, anschließend das BreakNotifierLit-Projekt
+In der Datei BreaknotifierLit/app/src/main/res/values/strings.xml muss die Ressource mit dem Namen "server_ip" geändert werden. Danach muss eine neue .apk-Datei aus dem Projekt generiert werden (in Android-Studio). Danach kann wie in Abschnitt 2.2 verfahren werden.
 
-* Selektieren Sie die String-Resource Datei (res -> values -> strings.xml)
+=== Android-Applikation
 
-* Ändere den Wert der "Server_Ip"-Variable
+==== Installation
 
-* Anschließend Exportieren man die APK (Build -> GenerateSigned Bundle -> APK auswählen -> Anweisungen im Wizard folge leisten)
+Die .apk-Datei kann in den 
+https://github.com/DavidWeinberger/BreakNotifierAndroid/releases[Releases] des GitHub-Repositorys heruntergeladen werden. Um die App zu installieren reicht es normalerweise, die .apk im Dateimanager zu öffnen. Bei manchen Android-Versionen muss die .apk mit einem externen Tool installiert werden.
 
-* Nur noch die Apk auf das Smartphone laden und ausführen
+==== Login
 
-* Abschließen mit dem WebUntis Account einloggen
-
-==== Verwendung des bestehendem Servers
-
-* Download der APK
-
-https://github.com/DavidWeinberger/BreakNotifierAndroid/releases
-
-* Öffnen des Installations-Tools am Smartphone
-
-    Oft genügt ein einfacher Klick auf die Apk, im Datei-Manager.
-
-* Nach der Installation einfach mit dem Webuntis-Account einloggen
+Nach dem ersten Öffnen der App wird der Login-Screen angezeigt. Dort müssen Nutzername und Passwort des WebUntis-Accounts eingegeben werden. Danach kann die App geschlossen werden, die Benachrichtigungen werden im Hintergrund verarbeitet.
 
 == Projekthandbuch
 
@@ -106,7 +78,9 @@ https://github.com/DavidWeinberger/BreakNotifierAndroid/releases
 
 image:system.jpg[width=75%]
 
+=== Deployment-Diagramm
 
+image:DeploymentDiagram.png[]
 
 === GANTT-Diagramm
 
