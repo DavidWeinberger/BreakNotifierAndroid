@@ -1,7 +1,9 @@
 = BreakNotifier
 
 David Weinberger
+
 Arno Blümel
+
 1.0.1, 2020-04-16
 
 :sourcedir: ../src/main/java
