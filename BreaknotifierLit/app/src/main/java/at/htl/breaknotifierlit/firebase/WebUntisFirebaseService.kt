@@ -1,14 +1,22 @@
 package at.htl.breaknotifierlit.firebase
 
 import android.app.Notification
-import android.app.NotificationManager
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
+import at.htl.breaknotifierlit.MainActivity
 import at.htl.breaknotifierlit.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import org.json.JSONArray
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
 
 class WebUntisFirebaseService: FirebaseMessagingService() {
+    companion object {
+        var checkDate = 0
+    }
 
     val TAG: String = "WebUntisFirebaseService"
 
@@ -17,9 +25,32 @@ class WebUntisFirebaseService: FirebaseMessagingService() {
         Log.i(TAG, " - Message Title: " + remoteMessage.data["title"])
         Log.i(TAG, " - Message Body: " + remoteMessage.data["body"])
         super.onMessageReceived(remoteMessage)
+        val date: LocalDate = LocalDate.now(ZoneId.of("CET"))
+        var formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        var formattedDate = date.format(formatter);
+        var currentDate = formattedDate.toInt()
 
-        val notification = Notification.Builder(this, getString(R.string.channel_id)).setContentTitle(remoteMessage.data["title"]).setContentText(remoteMessage.data["body"]).setSmallIcon(R.mipmap.ic_launcher).build()
-        val notificationManager = NotificationManagerCompat.from(this)
-        notificationManager.notify(0, notification)
+        println(checkDate.toString() + " | " + currentDate.toString())
+
+
+        if(remoteMessage.data["title"].equals("#200")){
+//            System.out.println(remoteMessage.data["body"])
+            val subjects = JSONArray(remoteMessage.data["body"])
+            for (i in 0 until subjects.length()){
+                val item = subjects.getJSONObject(i)
+                println(item)
+                MainActivity.listItemsNew.add(item.getString("subject") + "  " + item.getString("roomNr") + "\n" + item.getString("startTime") + "  " + item.getString("endTime"));
+            }
+        } else if(remoteMessage.data["title"].equals("#100")) {
+            MainActivity.uname = remoteMessage.data["body"]
+        } else if(checkDate <= currentDate){
+            val notification = Notification.Builder(this, getString(R.string.channel_id)).setContentTitle(remoteMessage.data["title"]).setContentText(remoteMessage.data["body"]).setSmallIcon(R.mipmap.ic_launcher).build()
+            val notificationManager = NotificationManagerCompat.from(this)
+            notificationManager.notify(0, notification)
+            checkDate = 0
+        }
+
+
+
     }
 }

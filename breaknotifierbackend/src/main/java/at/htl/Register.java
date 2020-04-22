@@ -28,14 +28,41 @@ public class Register {
     public Response isRegisterd(@PathParam("id") String id) {
         final Response[] response = new Response[1];
         ClientRepository.clients.forEach(x -> {
-            if(x.getId().equals(id)){
+            if(x.getId().equals(id) && x.getRu().isRunnin()){
+                System.out.println("Found");
                 response[0] = Response.ok().build();
+                x.getRu().sendUserAndSubjects();
             }
         });
         if(response[0] == null){
             response[0] = Response.serverError().build();
         }
         return response[0];
+    }
+
+    @DELETE
+    @Path("/logout/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response Deactivate(@PathParam("id") String id) {
+        ClientRepository.clients.forEach(x -> {
+            if(x.getId().equals(id)){
+                x.getRu().Stopping();
+            }
+        });
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/snooze/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response Snooze(@PathParam("id") String id) {
+        System.out.println("Rest logout");
+        ClientRepository.clients.forEach(x -> {
+            if(x.getId().equals(id)){
+                x.getRu().snoozing();
+            }
+        });
+        return Response.ok().build();
     }
 
     @POST
@@ -49,8 +76,8 @@ public class Register {
         NewCookie cookie = webUntisConnection.login();
         if(cookie != null){
             Thread currentThread = new Thread(webUntisConnection);
+            Client newClient = new Client(id, currentThread, webUntisConnection);
             currentThread.start();
-            Client newClient = new Client(id, currentThread);
             ClientRepository.clients.add(newClient);
             return  Response.ok().build();
         }

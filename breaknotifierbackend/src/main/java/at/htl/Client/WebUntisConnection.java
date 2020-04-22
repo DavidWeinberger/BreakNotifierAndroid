@@ -4,6 +4,7 @@ package at.htl.Client;
 import at.htl.Dashboard;
 import at.htl.Data.PasswordEncrypt;
 import at.htl.Data.Subjects;
+import com.google.gson.Gson;
 
 import javax.enterprise.inject.New;
 import javax.json.JsonArray;
@@ -28,6 +29,13 @@ public class WebUntisConnection implements Runnable {
     private String pw;
     private NewCookie cookie;
     List<Subjects> subjectsList = new LinkedList<>();
+    private Boolean snooze = false;
+
+    public boolean isRunnin() {
+        return runnin;
+    }
+
+    private boolean runnin = true;
 
     public WebUntisConnection(String _id, String _uname, String _pw) {
         id = _id;
@@ -74,21 +82,62 @@ public class WebUntisConnection implements Runnable {
         return null;
     }
 
+    public void snoozing(){
+        snooze = !snooze;
+    }
+
+    public void Stopping() {
+        runnin = false;
+
+    }
+
+    public void sendUserAndSubjects(){
+        try {
+            SendPushNotification.pushFCMNotification(id, "#100", PasswordEncrypt.decrypt(uname, id));
+            readDailyHours();
+            SendPushNotification.pushFCMNotification(id, "#200", new Gson().toJson(subjectsList));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void run() {
 
+
+
         cookie = login();
         if (cookie != null) {
+            sendUserAndSubjects();
             long stopwatch = System.currentTimeMillis() - DELAY_FOR_RELOAD_OF_SUBJECTS;
-            while (true) {
+            while (runnin) {
+//                if(snooze){
+//                    LocalDate date = LocalDate.now(ZoneId.of("CET"));
+//                    date.plusDays(1);
+//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+//                    String formattedDate = date.format(formatter);
+//                    String compareDate = "";
+//                    do {
+//                        date = LocalDate.now(ZoneId.of("CET"));
+//                        compareDate = date.format(formatter);
+//                        try {
+//                            Thread.sleep(300);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }while (formattedDate.equals(compareDate) && snooze);
+//                    snooze = false;
+//                }
                 try {
 
                     if ((System.currentTimeMillis() - stopwatch) >= DELAY_FOR_RELOAD_OF_SUBJECTS) {
                         readDailyHours();
                         stopwatch = System.currentTimeMillis();
+//                        System.out.println("Length of list: " + subjectsList.size());
                     }
                     if (subjectsList.size() > 0) {
                         noticeNotification();
+//                        System.out.println("Length of list: " + subjectsList.size());
                     }
                     Thread.sleep(10000);
                 } catch (Exception e) {
@@ -107,7 +156,7 @@ public class WebUntisConnection implements Runnable {
                 }
             }
         }
-
+        System.out.println("Thread Stopped");
 
     }
 
@@ -118,15 +167,18 @@ public class WebUntisConnection implements Runnable {
         String formattedTime = time.format(formatter);
         if (Integer.parseInt(formattedTime.replace(":", "")) ==
                 Integer.parseInt(subjectsList.get(0).getEndTime().replace(":", ""))) {
-            System.out.println("Hour is over");
-            SendPushNotification.pushFCMNotification(id, "Pause", subjectsList.get(0).getSubject());
+//            System.out.println("Hour is over");
+            SendPushNotification.pushFCMNotification(id, "Unterrichtsende", subjectsList.get(0).getSubject());
+            Thread.sleep(3000);
+            readDailyHours();
+            SendPushNotification.pushFCMNotification(id, "#200", new Gson().toJson(subjectsList));
             Thread.sleep(65000);
             readDailyHours();
         } else if (Integer.parseInt(formattedTime.replace(":", "")) ==
                 Integer.parseInt(subjectsList.get(0).getStartTime().replace(":", ""))) {
-            System.out.println("Hour starts");
+//            System.out.println("Hour starts");
 
-            SendPushNotification.pushFCMNotification(id, "Unterricht", subjectsList.get(0).toString());
+            SendPushNotification.pushFCMNotification(id, "Unterrichtsbeginn", subjectsList.get(0).toString());
 
 
             Thread.sleep(65000);
@@ -184,7 +236,7 @@ public class WebUntisConnection implements Runnable {
             LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             String formattedTime = time.format(formatter);
-            //this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
+//            this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
             if (Integer.parseInt(formattedTime.replace(":", "")) <
                     Integer.parseInt(endTime.replace(":", ""))) {
                 this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));

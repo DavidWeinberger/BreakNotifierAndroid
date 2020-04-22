@@ -53,6 +53,6 @@ public class SendPushNotification {
             response.append(inputLine);
         }
         in.close();
-
+        conn.disconnect();
     }
 }
