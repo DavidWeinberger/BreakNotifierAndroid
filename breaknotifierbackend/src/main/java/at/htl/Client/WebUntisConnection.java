@@ -237,11 +237,11 @@ public class WebUntisConnection implements Runnable {
             LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             String formattedTime = time.format(formatter);
-            this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher, className));
-//            if (Integer.parseInt(formattedTime.replace(":", "")) <
-//                    Integer.parseInt(endTime.replace(":", ""))) {
-//                this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
-//            }
+//            this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher, className));
+            if (Integer.parseInt(formattedTime.replace(":", "")) <
+                    Integer.parseInt(endTime.replace(":", ""))) {
+                this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher, className));
+            }
         }
     }
 }
