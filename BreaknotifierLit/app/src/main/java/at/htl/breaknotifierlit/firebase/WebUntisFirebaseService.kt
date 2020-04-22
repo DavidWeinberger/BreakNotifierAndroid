@@ -39,7 +39,15 @@ class WebUntisFirebaseService: FirebaseMessagingService() {
             for (i in 0 until subjects.length()){
                 val item = subjects.getJSONObject(i)
                 println(item)
-                MainActivity.listItemsNew.add(item.getString("subject") + "  " + item.getString("roomNr") + "\n" + item.getString("startTime") + "  " + item.getString("endTime"));
+                MainActivity.listItemsNew.add(item.getString("subject") + "\t\t\t\t" + item.getString("roomNr") + "\t\t\t" +  item.getString("className") + "\t\t\t"  + item.getString("teacher") + "\n" + item.getString("startTime") + " - " + item.getString("endTime"));
+                if(i+1 < subjects.length()){
+                    val end = item.getString("endTime").replace(":", "").toInt();
+                    val start = subjects.getJSONObject(i + 1).getString("startTime").replace(":", "").toInt();
+                    println("Time: " + (start-end))
+                    if(start - end > 20){
+                        MainActivity.listItemsNew.add("Pause \n" + item.getString("endTime") + " - " + subjects.getJSONObject(i + 1).getString("startTime") );
+                    }
+                }
             }
         } else if(remoteMessage.data["title"].equals("#100")) {
             MainActivity.uname = remoteMessage.data["body"]

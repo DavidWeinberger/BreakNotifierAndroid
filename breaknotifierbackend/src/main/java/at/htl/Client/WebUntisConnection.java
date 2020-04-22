@@ -217,6 +217,7 @@ public class WebUntisConnection implements Runnable {
         this.subjectsList = new LinkedList<>();
         for (int x = 0; x < jsonArray.size(); x++) {
             JsonObject jsonObject = jsonArray.getJsonObject(x);
+//            System.out.println(jsonObject);
             String subject = jsonObject.getString("subject");
             String startTime = String.valueOf(jsonObject.getInt("startTime"));
             String subTime = startTime.substring(startTime.length() - 2);
@@ -230,17 +231,17 @@ public class WebUntisConnection implements Runnable {
 
             String teacher = jsonObject.getString("teacher");
             String room = jsonObject.getString("room");
-
+            String className = jsonObject.getString("klasse");
 
             //String backColor = jsonObject.getString("backColor");
             LocalDateTime time = LocalDateTime.now(ZoneId.of("CET"));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             String formattedTime = time.format(formatter);
-//            this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
-            if (Integer.parseInt(formattedTime.replace(":", "")) <
-                    Integer.parseInt(endTime.replace(":", ""))) {
-                this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
-            }
+            this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher, className));
+//            if (Integer.parseInt(formattedTime.replace(":", "")) <
+//                    Integer.parseInt(endTime.replace(":", ""))) {
+//                this.subjectsList.add(new Subjects(subject, room, startTime, endTime, teacher));
+//            }
         }
     }
 }

@@ -22,13 +22,15 @@ public class Subjects {
     private String startTime;
     private String endTime;
     private String teacher;
+    private String className;
 
-    public Subjects(String subject, String roomNr, String startTime, String endTime, String teacher) {
+    public Subjects(String subject, String roomNr, String startTime, String endTime, String teacher, String className) {
         this.subject = subject;
         this.roomNr = roomNr;
         this.startTime = startTime;
         this.endTime = endTime;
         this.teacher = teacher;
+        this.className = className;
     }
 
     public String getEndTime() {
